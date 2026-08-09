@@ -267,6 +267,44 @@ h1, h2, h3 {
   100% { transform: translateY(-320px) translateX(18px); opacity: 0; }
 }
 
+/* ---------- Carte gallery ---------- */
+.carte-gallery { padding: 64px 0 12px; }
+.carte-scroll {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scroll-snap-type: x proximity;
+}
+.carte-scroll img {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  height: 320px;
+  width: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+.carte-scroll img:hover { transform: scale(1.02); }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  background: rgba(8, 6, 4, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.lightbox.visible { opacity: 1; pointer-events: auto; }
+.lightbox img { max-width: 100%; max-height: 100%; border-radius: var(--radius-sm); }
+.lightbox .modal-close { position: fixed; top: 24px; right: 24px; }
+
 /* ---------- Menu layout ---------- */
 .cat-nav-anchor { scroll-margin-top: 76px; }
 

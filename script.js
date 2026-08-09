@@ -46,97 +46,97 @@ const MENU = [
     id: 'assiettes', label: 'Assiettes & Salades', icon: '🍽️',
     note: 'Servies avec frites, salade et sauce au choix.',
     items: [
-      { name: 'Assiette 1 Viande', emoji: '🍽️', desc: '1 viande au choix, frites, salade, sauce au choix.', prices: [{ key: 'seul', label: 'Seul', value: 8.5 }] },
-      { name: 'Assiette 2 Viandes', emoji: '🍽️', desc: '2 viandes au choix, frites, salade, sauce au choix.', prices: [{ key: 'seul', label: 'Seul', value: 9.5 }] },
-      { name: 'Assiette 3 Viandes', emoji: '🍽️', desc: '3 viandes au choix, frites, salade, sauce au choix.', prices: [{ key: 'seul', label: 'Seul', value: 10.5 }] },
-      { name: 'Salade Country', emoji: '🥗', desc: 'Salade, tomate, poulet, mozzarella, maïs, concombres, croûtons.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }] },
-      { name: 'Salade Pêcheur', emoji: '🥗', desc: 'Salade, tomate, thon, oeuf, maïs, carottes râpées, croûtons.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }] },
+      { name: 'Assiette 1 Viande', emoji: '🍽️', img: 'images/assiette-1-viande.jpg', desc: '1 viande au choix, frites, salade, sauce au choix.', prices: [{ key: 'seul', label: 'Seul', value: 8.5 }] },
+      { name: 'Assiette 2 Viandes', emoji: '🍽️', img: 'images/assiette-2-viandes.jpg', desc: '2 viandes au choix, frites, salade, sauce au choix.', prices: [{ key: 'seul', label: 'Seul', value: 9.5 }] },
+      { name: 'Assiette 3 Viandes', emoji: '🍽️', img: 'images/assiette-3-viandes.jpg', desc: '3 viandes au choix, frites, salade, sauce au choix.', prices: [{ key: 'seul', label: 'Seul', value: 10.5 }] },
+      { name: 'Salade Country', emoji: '🥗', img: 'images/salade-country.jpg', desc: 'Salade, tomate, poulet, mozzarella, maïs, concombres, croûtons.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }] },
+      { name: 'Salade Pêcheur', emoji: '🥗', img: 'images/salade-pecheur.jpg', desc: 'Salade, tomate, thon, oeuf, maïs, carottes râpées, croûtons.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }] },
     ],
   },
   {
     id: 'wraps', label: 'Wraps', icon: '🌯',
     items: [
-      { name: 'Wrap Tenders', emoji: '🌯', desc: 'Poulet crispy, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Wrap Fermier', emoji: '🌯', desc: 'Poulet crispy, galette de pomme de terre, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
+      { name: 'Wrap Tenders', emoji: '🌯', img: 'images/wrap-tenders.jpg', desc: 'Poulet crispy, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
+      { name: 'Wrap Fermier', emoji: '🌯', img: 'images/wrap-fermier.jpg', desc: 'Poulet crispy, galette de pomme de terre, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
       { name: 'Wrap Country', emoji: '🌯', desc: 'Poulet crispy, steak haché, galette de pomme de terre, cheddar, crudités.', prices: [{ key: 'menu', label: 'Menu', value: 8.5 }] },
     ],
   },
   {
     id: 'pitas', label: 'Pitas & Paninis', icon: '🥙',
     items: [
-      { name: 'Pita Kebab', emoji: '🥙', desc: 'Viande kebab, crudités.', badge: 'Étudiant 6,00 €', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
-      { name: 'Pita Chicken', emoji: '🥙', desc: 'Poulet épicé, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Pita Falafel', emoji: '🥙', desc: 'Falafel, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Pita 1 Viande', emoji: '🥙', desc: '1 viande au choix, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Pita 2 Viandes', emoji: '🥙', desc: '2 viandes au choix, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-      { name: 'Panini Fromage', emoji: '🥪', desc: 'Chèvre, cheddar, mozzarella.', prices: [{ key: 'seul', label: 'Seul', value: 4.5 }, { key: 'menu', label: 'Menu', value: 6.0 }] },
-      { name: 'Panini 1 Viande', emoji: '🥪', desc: '1 viande au choix.', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
-      { name: 'Panini Chèvre Miel', emoji: '🥪', desc: 'Chèvre et miel.', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
-      { name: 'Tacos Buffalo', emoji: '🌮', desc: 'Steak haché, fromage, tranche de boeuf fumé.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
+      { name: 'Pita Kebab', emoji: '🥙', img: 'images/pita-kebab.jpg', desc: 'Viande kebab, crudités.', badge: 'Étudiant 6,00 €', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
+      { name: 'Pita Chicken', emoji: '🥙', img: 'images/pita-chicken.jpg', desc: 'Poulet épicé, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
+      { name: 'Pita Falafel', emoji: '🥙', img: 'images/pita-falafel.jpg', desc: 'Falafel, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
+      { name: 'Pita 1 Viande', emoji: '🥙', img: 'images/pita-1-viande.jpg', desc: '1 viande au choix, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
+      { name: 'Pita 2 Viandes', emoji: '🥙', img: 'images/pita-2-viandes.jpg', desc: '2 viandes au choix, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
+      { name: 'Panini Fromage', emoji: '🥪', img: 'images/panini.jpg', desc: 'Chèvre, cheddar, mozzarella.', prices: [{ key: 'seul', label: 'Seul', value: 4.5 }, { key: 'menu', label: 'Menu', value: 6.0 }] },
+      { name: 'Panini 1 Viande', emoji: '🥪', img: 'images/panini.jpg', desc: '1 viande au choix.', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
+      { name: 'Panini Chèvre Miel', emoji: '🥪', img: 'images/panini.jpg', desc: 'Chèvre et miel.', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
+      { name: 'Tacos Buffalo', emoji: '🌮', img: 'images/tacos-buffalo.jpg', desc: 'Steak haché, fromage, tranche de boeuf fumé.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
     ],
   },
   {
     id: 'sandwichs', label: "Best'Of Sandwichs", icon: '🥖',
     note: "100% Halal · 2 sauces au choix incluses (+0,25 € par sauce supplémentaire) · Supplément salade crudités +2,50 €",
     items: [
-      { name: 'Cordon Bleu', emoji: '🥖', desc: 'Cordon bleu pané.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Chicken Chika', emoji: '🥖', desc: 'Poulet épicé façon chika.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Kefta', emoji: '🥖', desc: 'Kefta grillée maison.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-      { name: 'Merguez', emoji: '🥖', desc: 'Merguez grillée.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Kebab', emoji: '🥖', desc: 'Viande kebab à la broche.', badge: 'Étudiant 6,00 €', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
-      { name: 'Américain', emoji: '🥖', desc: '2 steaks, cheddar.', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
-      { name: 'Poulet Forestier', emoji: '🥖', desc: 'Poulet et champignons.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-      { name: 'Arabica', emoji: '🥖', desc: 'Steak, kefta, cheddar, oeuf.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Buffalo', emoji: '🥖', desc: 'Steak, oeuf, cheddar, boeuf fumé.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Duo Mixte', emoji: '🥖', desc: '2 viandes au choix, cheddar.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
+      { name: 'Cordon Bleu', emoji: '🥖', img: 'images/cordon-bleu.jpg', desc: 'Cordon bleu pané.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
+      { name: 'Chicken Chika', emoji: '🥖', img: 'images/chicken-chika.jpg', desc: 'Poulet épicé façon chika.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
+      { name: 'Kefta', emoji: '🥖', img: 'images/kefta.jpg', desc: 'Kefta grillée maison.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
+      { name: 'Merguez', emoji: '🥖', img: 'images/merguez.jpg', desc: 'Merguez grillée.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
+      { name: 'Kebab', emoji: '🥖', img: 'images/kebab.jpg', desc: 'Viande kebab à la broche.', badge: 'Étudiant 6,00 €', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
+      { name: 'Américain', emoji: '🥖', img: 'images/americain.jpg', desc: '2 steaks, cheddar.', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
+      { name: 'Poulet Forestier', emoji: '🥖', img: 'images/poulet-forestier.jpg', desc: 'Poulet et champignons.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
+      { name: 'Arabica', emoji: '🥖', img: 'images/arabica.jpg', desc: 'Steak, kefta, cheddar, oeuf.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
+      { name: 'Buffalo', emoji: '🥖', img: 'images/buffalo.jpg', desc: 'Steak, oeuf, cheddar, boeuf fumé.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
+      { name: 'Duo Mixte', emoji: '🥖', img: 'images/duo-mixte.jpg', desc: '2 viandes au choix, cheddar.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
     ],
   },
   {
     id: 'burgers', label: "Best'Of Burgers", icon: '🍔',
     note: 'Suppléments disponibles en caisse : oignons frits +0,50 €, pickles +0,50 €.',
     items: [
-      { name: 'Cheese Burger', emoji: '🍔', desc: '1 steak 45g, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 4.0 }, { key: 'menu', label: 'Menu', value: 5.5 }] },
-      { name: 'Chicken Burger', emoji: '🍔', desc: 'Poulet pané, fromage.', badge: 'Étudiant 6,00 €', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
-      { name: 'Fish Burger', emoji: '🍔', desc: 'Poisson pané, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
-      { name: 'Royal Chicken', emoji: '🍔', desc: 'Poulet pané, fromage, galette de pomme de terre.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: "Méga Best'Of", emoji: '🍔', desc: '3 steaks 80g, fromage, pickles.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: "Royal Best'Of", emoji: '🍔', desc: '2 steaks 90g, fromage, bacon de dinde.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: 'Végétarien', emoji: '🍔', desc: 'Steak pané de blé.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Buffalo Burger', emoji: '🍔', desc: '2 steaks 80g, fromage, boeuf fumé.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: 'Provençal', emoji: '🍔', desc: '1 steak 150g façon bouchère, légumes grillés, oignons frits, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: 'Méditerranéen', emoji: '🍔', desc: 'Steak revisité, poêlée de légumes, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: 'Auvergnat', emoji: '🍔', desc: '1 steak 150g, raclette, galette de pomme de terre.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: '180 Burger', emoji: '🍔', desc: '1 steak 180g, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: '360 Burger', emoji: '🍔', desc: '2 steaks 180g, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 10.0 }, { key: 'menu', label: 'Menu', value: 12.0 }] },
+      { name: 'Cheese Burger', emoji: '🍔', img: 'images/cheese-burger.jpg', desc: '1 steak 45g, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 4.0 }, { key: 'menu', label: 'Menu', value: 5.5 }] },
+      { name: 'Chicken Burger', emoji: '🍔', img: 'images/chicken-burger.jpg', desc: 'Poulet pané, fromage.', badge: 'Étudiant 6,00 €', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
+      { name: 'Fish Burger', emoji: '🍔', img: 'images/fish-burger.jpg', desc: 'Poisson pané, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
+      { name: 'Royal Chicken', emoji: '🍔', img: 'images/royal-chicken.jpg', desc: 'Poulet pané, fromage, galette de pomme de terre.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
+      { name: "Méga Best'Of", emoji: '🍔', img: 'images/mega-bestof.jpg', desc: '3 steaks 80g, fromage, pickles.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
+      { name: "Royal Best'Of", emoji: '🍔', img: 'images/royal-bestof.jpg', desc: '2 steaks 90g, fromage, bacon de dinde.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
+      { name: 'Végétarien', emoji: '🍔', img: 'images/vegetarien.jpg', desc: 'Steak pané de blé.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
+      { name: 'Buffalo Burger', emoji: '🍔', img: 'images/buffalo-burger.jpg', desc: '2 steaks 80g, fromage, boeuf fumé.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
+      { name: 'Provençal', emoji: '🍔', img: 'images/provencal.jpg', desc: '1 steak 150g façon bouchère, légumes grillés, oignons frits, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
+      { name: 'Méditerranéen', emoji: '🍔', img: 'images/mediterraneen.jpg', desc: 'Steak revisité, poêlée de légumes, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
+      { name: 'Auvergnat', emoji: '🍔', img: 'images/auvergnat.jpg', desc: '1 steak 150g, raclette, galette de pomme de terre.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
+      { name: '180 Burger', emoji: '🍔', img: 'images/burger-180.jpg', desc: '1 steak 180g, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
+      { name: '360 Burger', emoji: '🍔', img: 'images/burger-360.jpg', desc: '2 steaks 180g, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 10.0 }, { key: 'menu', label: 'Menu', value: 12.0 }] },
     ],
   },
   {
     id: 'tacos', label: 'Tacos à composer', icon: '🌮',
     note: 'Choisissez la taille, on compose le reste ensemble : garniture, viande(s), sauces et suppléments.',
     items: [
-      { name: 'Tacos M', emoji: '🌮', desc: '1 viande au choix.', badge: 'Étudiant 6,50 €', configurable: 'tacos', taille: 'M', viandeCount: 1, prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Tacos L', emoji: '🌮', desc: '2 viandes au choix.', configurable: 'tacos', taille: 'L', viandeCount: 2, prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-      { name: 'Tacos XL', emoji: '🌮', desc: '3 viandes au choix.', configurable: 'tacos', taille: 'XL', viandeCount: 3, prices: [{ key: 'seul', label: 'Seul', value: 8.5 }, { key: 'menu', label: 'Menu', value: 10.0 }] },
+      { name: 'Tacos M', emoji: '🌮', img: 'images/tacos-hero.jpg', desc: '1 viande au choix.', badge: 'Étudiant 6,50 €', configurable: 'tacos', taille: 'M', viandeCount: 1, prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
+      { name: 'Tacos L', emoji: '🌮', img: 'images/tacos-hero.jpg', desc: '2 viandes au choix.', configurable: 'tacos', taille: 'L', viandeCount: 2, prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
+      { name: 'Tacos XL', emoji: '🌮', img: 'images/tacos-hero.jpg', desc: '3 viandes au choix.', configurable: 'tacos', taille: 'XL', viandeCount: 3, prices: [{ key: 'seul', label: 'Seul', value: 8.5 }, { key: 'menu', label: 'Menu', value: 10.0 }] },
     ],
   },
   {
     id: 'box', label: 'Box', icon: '🍱',
     items: [
-      { name: 'Box 1', emoji: '🍱', desc: 'Frites, poêlée de légumes, oignons frits, sauce au choix.', configurable: 'box', box: '1', prices: [{ key: '1v', label: '1 viande', value: 7.0, viandeCount: 1 }, { key: '2v', label: '2 viandes', value: 9.0, viandeCount: 2 }] },
-      { name: 'Box 2', emoji: '🍱', desc: 'Riz jaune crudités, salade tomate concombre maïs, poêlée de légumes.', configurable: 'box', box: '2', prices: [{ key: '1v', label: '1 viande', value: 7.0, viandeCount: 1 }, { key: '2v', label: '2 viandes', value: 9.0, viandeCount: 2 }] },
+      { name: 'Box 1', emoji: '🍱', img: 'images/box-1.jpg', desc: 'Frites, poêlée de légumes, oignons frits, sauce au choix.', configurable: 'box', box: '1', prices: [{ key: '1v', label: '1 viande', value: 7.0, viandeCount: 1 }, { key: '2v', label: '2 viandes', value: 9.0, viandeCount: 2 }] },
+      { name: 'Box 2', emoji: '🍱', img: 'images/box-2.jpg', desc: 'Riz jaune crudités, salade tomate concombre maïs, poêlée de légumes.', configurable: 'box', box: '2', prices: [{ key: '1v', label: '1 viande', value: 7.0, viandeCount: 1 }, { key: '2v', label: '2 viandes', value: 9.0, viandeCount: 2 }] },
     ],
   },
   {
     id: 'accompagnements', label: 'Accompagnements', icon: '🍟',
     items: [
-      { name: 'Tenders x5', emoji: '🍗', desc: '5 tenders de poulet croustillants.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-      { name: 'Onion Rings x5', emoji: '🧅', desc: '5 rondelles d’oignons panées.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Nuggets x10', emoji: '🍗', desc: '10 nuggets de poulet.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Chicken Wings x8', emoji: '🍗', desc: '8 ailes de poulet.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Mozza Sticks x6', emoji: '🧀', desc: '6 bâtonnets de mozzarella panée.', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
-      { name: 'Jalapenos x8', emoji: '🌶️', desc: '8 jalapenos panés.', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
-      { name: 'Barquette de Potatoes', emoji: '🥔', desc: 'Potatoes maison.', prices: [{ key: 'seul', label: 'Seul', value: 4.5 }] },
-      { name: 'Barquette de Frites', emoji: '🍟', desc: 'Frites fraîches.', prices: [{ key: 'seul', label: 'Seul', value: 3.5 }] },
+      { name: 'Tenders x5', emoji: '🍗', img: 'images/tenders.jpg', desc: '5 tenders de poulet croustillants.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
+      { name: 'Onion Rings x5', emoji: '🧅', img: 'images/onion-rings.jpg', desc: '5 rondelles d’oignons panées.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
+      { name: 'Nuggets x10', emoji: '🍗', img: 'images/nuggets.jpg', desc: '10 nuggets de poulet.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
+      { name: 'Chicken Wings x8', emoji: '🍗', img: 'images/chicken-wings.jpg', desc: '8 ailes de poulet.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
+      { name: 'Mozza Sticks x6', emoji: '🧀', img: 'images/mozza-sticks.jpg', desc: '6 bâtonnets de mozzarella panée.', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
+      { name: 'Jalapenos x8', emoji: '🌶️', img: 'images/jalapenos.jpg', desc: '8 jalapenos panés.', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
+      { name: 'Barquette de Potatoes', emoji: '🥔', img: 'images/potatoes.jpg', desc: 'Potatoes maison.', prices: [{ key: 'seul', label: 'Seul', value: 4.5 }] },
+      { name: 'Barquette de Frites', emoji: '🍟', img: 'images/frites.jpg', desc: 'Frites fraîches.', prices: [{ key: 'seul', label: 'Seul', value: 3.5 }] },
     ],
   },
   {
@@ -615,6 +615,17 @@ $('#cart-fab').addEventListener('click', () => openCartDrawer(true));
 $('#close-cart').addEventListener('click', () => openCartDrawer(false));
 $('#drawer-backdrop').addEventListener('click', () => openCartDrawer(false));
 $('#hero-order-btn').addEventListener('click', () => openCartDrawer(true));
+
+/* ============ CARTE GALLERY LIGHTBOX ============ */
+$('#carte-scroll').addEventListener('click', (e) => {
+  const img = e.target.closest('img');
+  if (!img) return;
+  $('#lightbox-img').src = img.src;
+  $('#lightbox-img').alt = img.alt;
+  $('#lightbox').classList.add('visible');
+});
+$('#lightbox-close').addEventListener('click', () => $('#lightbox').classList.remove('visible'));
+$('#lightbox').addEventListener('click', (e) => { if (e.target.id === 'lightbox') $('#lightbox').classList.remove('visible'); });
 
 /* ============ NAV / BURGER / SEARCH ============ */
 const header = $('#header');
