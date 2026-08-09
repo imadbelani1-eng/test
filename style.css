@@ -268,25 +268,52 @@ h1, h2, h3 {
 }
 
 /* ---------- Carte gallery ---------- */
-.carte-gallery { padding: 64px 0 12px; }
+.carte-gallery { padding: 64px 0 12px; overflow: hidden; }
+.carte-gallery .eyebrow, .carte-gallery .section-title { padding: 0 24px; }
 .carte-scroll {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+.carte-track {
   display: flex;
   gap: 18px;
-  overflow-x: auto;
-  padding-bottom: 12px;
-  scroll-snap-type: x proximity;
+  width: max-content;
+  animation: carte-marquee 46s linear infinite;
 }
-.carte-scroll img {
-  scroll-snap-align: start;
+.carte-scroll:hover .carte-track { animation-play-state: paused; }
+@keyframes carte-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - 9px)); }
+}
+.carte-slide {
+  position: relative;
   flex: 0 0 auto;
-  height: 320px;
-  width: auto;
+  overflow: hidden;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  cursor: zoom-in;
-  transition: transform 0.2s ease;
 }
-.carte-scroll img:hover { transform: scale(1.02); }
+.carte-slide img {
+  display: block;
+  height: 320px;
+  width: auto;
+  cursor: zoom-in;
+}
+.carte-steam { position: absolute; inset: auto 0 0 0; height: 60%; pointer-events: none; }
+.carte-steam span {
+  position: absolute;
+  bottom: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  filter: blur(10px);
+  animation: puff 6s ease-in infinite;
+}
+.carte-steam span:nth-child(1) { left: 14%; animation-delay: 0s; }
+.carte-steam span:nth-child(2) { left: 40%; width: 34px; height: 34px; animation-delay: 1.6s; }
+.carte-steam span:nth-child(3) { left: 64%; width: 40px; height: 40px; animation-delay: 3.1s; }
+.carte-steam span:nth-child(4) { left: 84%; width: 30px; height: 30px; animation-delay: 4.4s; }
 
 .lightbox {
   position: fixed;
@@ -700,6 +727,39 @@ h1, h2, h3 {
 }
 .success-screen p.eta { color: var(--muted); margin-bottom: 26px; }
 
+.progress-tracker { margin: 22px 0 18px; }
+.progress-bar { height: 6px; border-radius: 999px; background: var(--ink-3); overflow: hidden; margin-bottom: 18px; }
+.progress-fill {
+  height: 100%;
+  width: 8%;
+  background: linear-gradient(90deg, var(--ember), var(--gold));
+  border-radius: 999px;
+  transition: width 1.4s ease;
+}
+.progress-steps { display: flex; justify-content: space-between; gap: 8px; }
+.progress-step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; opacity: 0.4; transition: opacity 0.3s ease; }
+.progress-step.active { opacity: 1; }
+.step-dot {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--ink-3); border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.progress-step.active .step-dot { background: var(--teal); border-color: var(--teal); color: #06282b; }
+.progress-step span:last-child { font-size: 0.68rem; color: var(--muted); font-weight: 700; text-align: center; }
+.progress-step.active span:last-child { color: var(--cream); }
+
+.fly-dot {
+  position: fixed;
+  z-index: 550;
+  font-size: 1.5rem;
+  pointer-events: none;
+  --scale: 1;
+  transform: translate(-50%, -50%) scale(var(--scale));
+  transition: left 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), top 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s ease, opacity 0.6s ease;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+}
+
 .toast {
   position: fixed;
   top: 90px;
@@ -754,6 +814,7 @@ h1, h2, h3 {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .smoke-col, .ember, .steam span, .item-card, .btn, .reveal { animation: none !important; transition: none !important; }
+  .smoke-col, .ember, .steam span, .carte-track, .carte-steam span, .item-card, .btn, .reveal { animation: none !important; transition: none !important; }
+  .carte-scroll { overflow-x: auto; }
   .reveal { opacity: 1; transform: none; }
 }

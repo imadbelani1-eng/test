@@ -301,6 +301,25 @@ function bounceCartBtn() {
   setTimeout(() => { btn.style.transform = ''; }, 180);
 }
 
+function flyToCart(fromEl, emoji) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const fromRect = fromEl.getBoundingClientRect();
+  const toRect = $('#cart-btn').getBoundingClientRect();
+  const dot = document.createElement('div');
+  dot.className = 'fly-dot';
+  dot.textContent = emoji || '🔥';
+  dot.style.left = `${fromRect.left + fromRect.width / 2}px`;
+  dot.style.top = `${fromRect.top + fromRect.height / 2}px`;
+  document.body.appendChild(dot);
+  requestAnimationFrame(() => {
+    dot.style.left = `${toRect.left + toRect.width / 2}px`;
+    dot.style.top = `${toRect.top + toRect.height / 2}px`;
+    dot.style.setProperty('--scale', '0.25');
+    dot.style.opacity = '0.15';
+  });
+  setTimeout(() => dot.remove(), 650);
+}
+
 function showToast(msg) {
   const toast = $('#toast');
   toast.textContent = msg;
@@ -336,6 +355,7 @@ document.addEventListener('click', (e) => {
     const value = parseFloat(addBtn.dataset.price);
     const key = addBtn.dataset.priceKey || item.prices[0].key;
     const priceDef = item.prices.find((p) => p.key === key) || item.prices[0];
+    flyToCart(addBtn, item.emoji);
     addToCart({ name: item.name, variant: priceDef.label, unitPrice: value });
     return;
   }
@@ -518,6 +538,7 @@ document.addEventListener('click', (e) => {
     if (configState.sauces.size) parts.push(`Sauces : ${[...configState.sauces].join(', ')}`);
     if (configState.extras.size) parts.push(`+ ${[...configState.extras].join(', ')}`);
     const priceDef = configState.item.prices.find((p) => p.key === configState.priceKey);
+    flyToCart(e.target, configState.item.emoji);
     addToCart({
       name: `${configState.item.name} (${configState.type === 'tacos' ? configState.item.taille : 'Box ' + configState.item.box})`,
       variant: `${priceDef.label} · ${parts.join(' — ')}`,
@@ -573,16 +594,40 @@ function renderSuccess() {
   const orderNum = 'BF-' + Math.floor(1000 + Math.random() * 9000);
   const eta = new Date(Date.now() + 20 * 60000);
   const etaStr = eta.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  const readyLabel = orderMode === 'emporter' ? 'Prête à récupérer' : 'Prête à servir';
   $('#checkout-content').innerHTML = `
     <div class="success-screen">
       <div class="success-icon">🔥</div>
       <h2>Commande confirmée !</h2>
       <div class="order-number">Commande ${orderNum}</div>
-      <p class="eta">${orderMode === 'emporter' ? 'À récupérer' : 'Servie sur place'} vers <strong>${etaStr}</strong>. Merci, ça va être chaud 🔥</p>
+      <div class="progress-tracker">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-steps">
+          <div class="progress-step active" data-step="1"><span class="step-dot">✓</span><span>Reçue</span></div>
+          <div class="progress-step" data-step="2"><span class="step-dot">🔥</span><span>En cuisine</span></div>
+          <div class="progress-step" data-step="3"><span class="step-dot">🛍️</span><span>${readyLabel}</span></div>
+        </div>
+      </div>
+      <p class="eta" id="eta-text">${orderMode === 'emporter' ? 'À récupérer' : 'Servie sur place'} vers <strong>${etaStr}</strong>. Merci, ça va être chaud 🔥</p>
       <button class="btn btn-outline btn-block" id="new-order">Nouvelle commande</button>
     </div>
   `;
+
+  const fill = $('#progress-fill');
+  const steps = $$('.progress-step');
+  const timers = [
+    setTimeout(() => { fill.style.width = '55%'; steps[1].classList.add('active'); }, 1600),
+    setTimeout(() => {
+      fill.style.width = '100%';
+      steps[2].classList.add('active');
+      $('#eta-text').textContent = orderMode === 'emporter'
+        ? 'Votre commande est prête, venez la récupérer 🔥'
+        : 'Votre commande arrive à table 🔥';
+    }, 4200),
+  ];
+
   $('#new-order').addEventListener('click', () => {
+    timers.forEach(clearTimeout);
     cart = [];
     saveCart();
     renderCart();
