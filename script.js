@@ -52,7 +52,7 @@ const DESSERTS = [
 ];
 
 /* ============ STATE ============ */
-const RESTAURANT_TEL = '+33478000000';
+const RESTAURANT_TEL = '+33961643625';
 let configState = null;
 
 const fmt = (n) => n.toFixed(2).replace('.', ',') + ' €';
