@@ -3,154 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atelier Hassan — Artisan Menuisier</title>
-<meta name="description" content="Atelier Hassan, artisan menuisier depuis 20 ans. Fabrication sur mesure, rénovation et agencement intérieur.">
+<title>Best'Of Food — Kebab, Tacos, Burgers Halal</title>
+<meta name="description" content="Best'Of Food : kebab, tacos, burgers et sandwichs 100% halal. Commandez en ligne, composez votre plat, retrait sur place.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="site-header" id="header">
   <div class="container header-inner">
-    <a href="#accueil" class="logo">Atelier <span>Hassan</span></a>
-    <nav class="nav" id="nav">
-      <a href="#accueil">Accueil</a>
-      <a href="#services">Services</a>
-      <a href="#realisations">Réalisations</a>
-      <a href="#avis">Avis</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a href="#contact" class="btn btn-primary nav-cta">Devis gratuit</a>
-    <button class="burger" id="burger" aria-label="Ouvrir le menu">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="#accueil" class="logo">Best<span class="logo-quote">'</span>Of <span class="logo-food">Food</span></a>
+
+    <nav class="cat-nav" id="cat-nav" aria-label="Catégories du menu"></nav>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <input type="search" id="search-input" placeholder="Chercher un plat…" aria-label="Chercher un plat">
+      </div>
+      <button class="cart-btn" id="cart-btn" aria-label="Ouvrir le panier">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
 <section class="hero" id="accueil">
+  <div class="hero-smoke" aria-hidden="true">
+    <span class="ember" style="--x:12%; --d:0s"></span>
+    <span class="ember" style="--x:28%; --d:1.4s"></span>
+    <span class="ember" style="--x:52%; --d:0.6s"></span>
+    <span class="ember" style="--x:68%; --d:2.1s"></span>
+    <span class="ember" style="--x:82%; --d:1s"></span>
+    <span class="ember" style="--x:40%; --d:2.8s"></span>
+    <div class="smoke-col" style="--x:20%"></div>
+    <div class="smoke-col" style="--x:50%"></div>
+    <div class="smoke-col" style="--x:78%"></div>
+  </div>
   <div class="container hero-inner">
-    <div class="hero-text">
-      <p class="eyebrow">Artisan menuisier depuis 2004</p>
-      <h1>Un savoir-faire d'exception, pour des créations sur mesure.</h1>
-      <p class="hero-sub">Fabrication, rénovation et agencement intérieur en bois massif. Chaque projet est pensé et réalisé à la main, dans notre atelier.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">Demander un devis</a>
-        <a href="#realisations" class="btn btn-outline">Voir nos réalisations</a>
-      </div>
-      <div class="hero-stats">
-        <div><strong>20+</strong><span>ans d'expérience</span></div>
-        <div><strong>350+</strong><span>projets réalisés</span></div>
-        <div><strong>4,9/5</strong><span>satisfaction client</span></div>
-      </div>
+    <p class="kicker">🔥 100% Halal · Fait minute</p>
+    <h1>Le kebab, le tacos et le burger qui vous font <span class="hero-highlight">revenir</span>.</h1>
+    <p class="hero-sub">Composez votre plat comme sur place : viandes, sauces, suppléments — tout est personnalisable. Grillé à la commande, servi brûlant.</p>
+    <div class="hero-actions">
+      <a href="#menu-start" class="btn btn-primary">Voir le menu</a>
+      <button class="btn btn-outline" id="hero-order-btn">Commander maintenant</button>
     </div>
-    <div class="hero-image" aria-hidden="true"></div>
-  </div>
-</section>
-
-<section class="section" id="services">
-  <div class="container">
-    <p class="eyebrow center">Nos prestations</p>
-    <h2 class="section-title">Des services pensés pour chaque projet</h2>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">🪚</div>
-        <h3>Fabrication sur mesure</h3>
-        <p>Mobilier, escaliers, portes et menuiseries conçus selon vos besoins et l'espace disponible.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🏠</div>
-        <h3>Agencement intérieur</h3>
-        <p>Dressings, bibliothèques et cuisines intégrées pour optimiser chaque pièce de votre maison.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🔨</div>
-        <h3>Rénovation</h3>
-        <p>Restauration de menuiseries anciennes et remise aux normes dans le respect du bâti d'origine.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">📐</div>
-        <h3>Conseil &amp; étude</h3>
-        <p>Accompagnement de A à Z : plans, choix des matériaux et devis détaillé avant tout engagement.</p>
-      </div>
+    <div class="hero-badges">
+      <span>🕌 Certifié Halal</span>
+      <span>⏱️ Prêt en 15 min</span>
+      <span>⭐ 4,8/5 — 900+ avis</span>
     </div>
   </div>
 </section>
 
-<section class="section alt" id="realisations">
-  <div class="container">
-    <p class="eyebrow center">Portfolio</p>
-    <h2 class="section-title">Quelques-unes de nos réalisations</h2>
-    <div class="gallery">
-      <div class="gallery-item" style="background:linear-gradient(135deg,#c9a876,#8a6d4a)"></div>
-      <div class="gallery-item" style="background:linear-gradient(135deg,#a67c52,#5e4529)"></div>
-      <div class="gallery-item" style="background:linear-gradient(135deg,#d8b98a,#a67c52)"></div>
-      <div class="gallery-item" style="background:linear-gradient(135deg,#8a6d4a,#3f2f1d)"></div>
-      <div class="gallery-item" style="background:linear-gradient(135deg,#e2c8a0,#b9925f)"></div>
-      <div class="gallery-item" style="background:linear-gradient(135deg,#6f5330,#3f2f1d)"></div>
+<div class="cat-nav-anchor" id="menu-start"></div>
+
+<main class="menu-wrap" id="menu-container"></main>
+
+<section class="promo-strip">
+  <div class="container promo-inner">
+    <div>
+      <h2>Composez votre Tacos, du M au XL.</h2>
+      <p>1, 2 ou 3 viandes au choix, garniture, sauces et suppléments — le configurateur fait le calcul pour vous.</p>
     </div>
+    <a href="#tacos" class="btn btn-primary">Je compose mon tacos 🌮</a>
   </div>
 </section>
 
-<section class="section" id="avis">
-  <div class="container">
-    <p class="eyebrow center">Témoignages</p>
-    <h2 class="section-title">Ce que disent nos clients</h2>
-    <div class="testimonials">
-      <div class="testimonial">
-        <p>"Un travail minutieux et un vrai souci du détail. Notre cuisine sur mesure est exactement ce qu'on imaginait."</p>
-        <div class="testimonial-author">— Claire M., Lyon</div>
-      </div>
-      <div class="testimonial">
-        <p>"Réactifs, professionnels et de bon conseil. Le devis a été respecté du début à la fin du chantier."</p>
-        <div class="testimonial-author">— Julien R., Villeurbanne</div>
-      </div>
-      <div class="testimonial">
-        <p>"Une rénovation de nos fenêtres anciennes faite dans les règles de l'art. Je recommande vivement."</p>
-        <div class="testimonial-author">— Sophie L., Caluire</div>
-      </div>
+<footer class="site-footer" id="contact">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <div class="logo footer-logo">Best<span class="logo-quote">'</span>Of <span class="logo-food">Food</span></div>
+      <p>🕌 Toutes nos viandes sont 100% Halal.</p>
     </div>
-  </div>
-</section>
-
-<section class="section alt" id="contact">
-  <div class="container contact-inner">
-    <div class="contact-info">
-      <p class="eyebrow">Contact</p>
-      <h2 class="section-title left">Un projet en tête ? Parlons-en.</h2>
-      <p class="hero-sub">Contactez-nous pour un premier échange et un devis gratuit et sans engagement.</p>
-      <ul class="contact-list">
-        <li>📍 12 rue des Artisans, 69000 Lyon</li>
-        <li>📞 04 12 34 56 78</li>
-        <li>✉️ contact@atelier-hassan.fr</li>
-        <li>🕘 Lun–Ven, 8h–18h</li>
+    <div class="footer-col">
+      <h3>Infos pratiques</h3>
+      <ul>
+        <li>📍 14 avenue de la République, 69000 Lyon</li>
+        <li>📞 04 78 00 00 00</li>
+        <li>🕘 Lun–Dim, 11h–23h</li>
       </ul>
     </div>
-    <form class="contact-form" id="contact-form">
-      <div class="form-row">
-        <input type="text" name="name" placeholder="Votre nom" required>
-        <input type="email" name="email" placeholder="Votre email" required>
-      </div>
-      <input type="tel" name="phone" placeholder="Votre téléphone (optionnel)">
-      <textarea name="message" rows="5" placeholder="Décrivez votre projet..." required></textarea>
-      <button type="submit" class="btn btn-primary btn-block">Envoyer ma demande</button>
-      <p class="form-note" id="form-note"></p>
-    </form>
-  </div>
-</section>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="logo footer-logo">Atelier <span>Hassan</span></div>
-    <p>&copy; <span id="year"></span> Atelier Hassan. Tous droits réservés.</p>
-    <div class="footer-links">
-      <a href="#accueil">Accueil</a>
-      <a href="#services">Services</a>
-      <a href="#realisations">Réalisations</a>
-      <a href="#contact">Contact</a>
+    <div class="footer-col">
+      <h3>Le menu</h3>
+      <ul id="footer-cat-links"></ul>
     </div>
   </div>
+  <div class="container footer-bottom">
+    <p>&copy; <span id="year"></span> Best'Of Food. Toutes les photos sont des illustrations et ne sont en aucun cas contractuelles.</p>
+  </div>
 </footer>
+
+<button class="cart-fab" id="cart-fab" aria-label="Voir le panier">
+  <span class="cart-fab-icon">🛒</span>
+  <span class="cart-fab-info">
+    <span class="cart-fab-count" id="cart-fab-count">0 article</span>
+    <span class="cart-fab-total" id="cart-fab-total">0,00 €</span>
+  </span>
+  <span class="cart-fab-arrow">Voir le panier →</span>
+</button>
+
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
+
+<aside class="cart-drawer" id="cart-drawer" aria-label="Panier">
+  <div class="cart-drawer-header">
+    <h2>Votre panier</h2>
+    <button class="modal-close" id="close-cart" aria-label="Fermer le panier">×</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <p class="cart-empty">Votre panier est vide pour l'instant. Allez faire un tour du côté du menu 👀</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row"><span>Total</span><strong id="cart-total">0,00 €</strong></div>
+    <button class="btn btn-primary btn-block" id="open-checkout" disabled>Commander</button>
+  </div>
+</aside>
+
+<div class="modal-overlay" id="configurator-overlay">
+  <div class="modal configurator" id="configurator-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="close-configurator" aria-label="Fermer">×</button>
+    <div id="configurator-content"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="checkout-overlay">
+  <div class="modal checkout" id="checkout-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="close-checkout" aria-label="Fermer">×</button>
+    <div id="checkout-content"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script src="script.js"></script>
 </body>
