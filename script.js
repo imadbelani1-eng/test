@@ -1,19 +1,4 @@
 /* ============ DATA ============ */
-/* item.img (optional): path to a real photo (e.g. "images/tacos-xl.jpg").
-   When absent, a designed gradient + emoji placeholder is used instead,
-   so real photos can be dropped in later without touching the markup. */
-
-const GRADIENTS = {
-  assiettes: ['#c9955c', '#5a3a1e'],
-  wraps: ['#4fd4de', '#0c6a72'],
-  pitas: ['#e8b64a', '#8a5a35'],
-  sandwichs: ['#ff9466', '#b8431f'],
-  burgers: ['#ffd166', '#a8611a'],
-  tacos: ['#ff6a3d', '#7a1f0f'],
-  box: ['#7fd8c0', '#0f5c52'],
-  accompagnements: ['#f4c95d', '#8a5a1e'],
-  desserts: ['#e6a4c4', '#7a2f4e'],
-};
 
 const TACOS_GARNITURE = ['Crudités Emmental', 'Frites Sauce Fromagère', 'Crudités Mozzarella'];
 const TACOS_VIANDES = [
@@ -41,112 +26,29 @@ const BOX_EXTRAS = [
   { name: 'Oeuf', price: 1.0 }, { name: 'Sauce Fromagère', price: 1.5 }, { name: 'Sauce Cheddar', price: 1.5 },
 ];
 
-const MENU = [
-  {
-    id: 'assiettes', label: 'Assiettes & Salades', icon: '🍽️',
-    note: 'Servies avec frites, salade et sauce au choix.',
-    items: [
-      { name: 'Assiette 1 Viande', emoji: '🍽️', img: 'images/assiette-1-viande.jpg', desc: '1 viande au choix, frites, salade, sauce au choix.', prices: [{ key: 'seul', label: 'Seul', value: 8.5 }] },
-      { name: 'Assiette 2 Viandes', emoji: '🍽️', img: 'images/assiette-2-viandes.jpg', desc: '2 viandes au choix, frites, salade, sauce au choix.', prices: [{ key: 'seul', label: 'Seul', value: 9.5 }] },
-      { name: 'Assiette 3 Viandes', emoji: '🍽️', img: 'images/assiette-3-viandes.jpg', desc: '3 viandes au choix, frites, salade, sauce au choix.', prices: [{ key: 'seul', label: 'Seul', value: 10.5 }] },
-      { name: 'Salade Country', emoji: '🥗', img: 'images/salade-country.jpg', desc: 'Salade, tomate, poulet, mozzarella, maïs, concombres, croûtons.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }] },
-      { name: 'Salade Pêcheur', emoji: '🥗', img: 'images/salade-pecheur.jpg', desc: 'Salade, tomate, thon, oeuf, maïs, carottes râpées, croûtons.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }] },
-    ],
-  },
-  {
-    id: 'wraps', label: 'Wraps', icon: '🌯',
-    items: [
-      { name: 'Wrap Tenders', emoji: '🌯', img: 'images/wrap-tenders.jpg', desc: 'Poulet crispy, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Wrap Fermier', emoji: '🌯', img: 'images/wrap-fermier.jpg', desc: 'Poulet crispy, galette de pomme de terre, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Wrap Country', emoji: '🌯', desc: 'Poulet crispy, steak haché, galette de pomme de terre, cheddar, crudités.', prices: [{ key: 'menu', label: 'Menu', value: 8.5 }] },
-    ],
-  },
-  {
-    id: 'pitas', label: 'Pitas & Paninis', icon: '🥙',
-    items: [
-      { name: 'Pita Kebab', emoji: '🥙', img: 'images/pita-kebab.jpg', desc: 'Viande kebab, crudités.', badge: 'Étudiant 6,00 €', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
-      { name: 'Pita Chicken', emoji: '🥙', img: 'images/pita-chicken.jpg', desc: 'Poulet épicé, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Pita Falafel', emoji: '🥙', img: 'images/pita-falafel.jpg', desc: 'Falafel, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Pita 1 Viande', emoji: '🥙', img: 'images/pita-1-viande.jpg', desc: '1 viande au choix, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Pita 2 Viandes', emoji: '🥙', img: 'images/pita-2-viandes.jpg', desc: '2 viandes au choix, cheddar, crudités.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-      { name: 'Panini Fromage', emoji: '🥪', img: 'images/panini.jpg', desc: 'Chèvre, cheddar, mozzarella.', prices: [{ key: 'seul', label: 'Seul', value: 4.5 }, { key: 'menu', label: 'Menu', value: 6.0 }] },
-      { name: 'Panini 1 Viande', emoji: '🥪', img: 'images/panini.jpg', desc: '1 viande au choix.', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
-      { name: 'Panini Chèvre Miel', emoji: '🥪', img: 'images/panini.jpg', desc: 'Chèvre et miel.', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
-      { name: 'Tacos Buffalo', emoji: '🌮', img: 'images/tacos-buffalo.jpg', desc: 'Steak haché, fromage, tranche de boeuf fumé.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-    ],
-  },
-  {
-    id: 'sandwichs', label: "Best'Of Sandwichs", icon: '🥖',
-    note: "100% Halal · 2 sauces au choix incluses (+0,25 € par sauce supplémentaire) · Supplément salade crudités +2,50 €",
-    items: [
-      { name: 'Cordon Bleu', emoji: '🥖', img: 'images/cordon-bleu.jpg', desc: 'Cordon bleu pané.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Chicken Chika', emoji: '🥖', img: 'images/chicken-chika.jpg', desc: 'Poulet épicé façon chika.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Kefta', emoji: '🥖', img: 'images/kefta.jpg', desc: 'Kefta grillée maison.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-      { name: 'Merguez', emoji: '🥖', img: 'images/merguez.jpg', desc: 'Merguez grillée.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Kebab', emoji: '🥖', img: 'images/kebab.jpg', desc: 'Viande kebab à la broche.', badge: 'Étudiant 6,00 €', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
-      { name: 'Américain', emoji: '🥖', img: 'images/americain.jpg', desc: '2 steaks, cheddar.', prices: [{ key: 'seul', label: 'Seul', value: 5.5 }, { key: 'menu', label: 'Menu', value: 7.0 }] },
-      { name: 'Poulet Forestier', emoji: '🥖', img: 'images/poulet-forestier.jpg', desc: 'Poulet et champignons.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-      { name: 'Arabica', emoji: '🥖', img: 'images/arabica.jpg', desc: 'Steak, kefta, cheddar, oeuf.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Buffalo', emoji: '🥖', img: 'images/buffalo.jpg', desc: 'Steak, oeuf, cheddar, boeuf fumé.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Duo Mixte', emoji: '🥖', img: 'images/duo-mixte.jpg', desc: '2 viandes au choix, cheddar.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-    ],
-  },
-  {
-    id: 'burgers', label: "Best'Of Burgers", icon: '🍔',
-    note: 'Suppléments disponibles en caisse : oignons frits +0,50 €, pickles +0,50 €.',
-    items: [
-      { name: 'Cheese Burger', emoji: '🍔', img: 'images/cheese-burger.jpg', desc: '1 steak 45g, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 4.0 }, { key: 'menu', label: 'Menu', value: 5.5 }] },
-      { name: 'Chicken Burger', emoji: '🍔', img: 'images/chicken-burger.jpg', desc: 'Poulet pané, fromage.', badge: 'Étudiant 6,00 €', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
-      { name: 'Fish Burger', emoji: '🍔', img: 'images/fish-burger.jpg', desc: 'Poisson pané, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
-      { name: 'Royal Chicken', emoji: '🍔', img: 'images/royal-chicken.jpg', desc: 'Poulet pané, fromage, galette de pomme de terre.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: "Méga Best'Of", emoji: '🍔', img: 'images/mega-bestof.jpg', desc: '3 steaks 80g, fromage, pickles.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: "Royal Best'Of", emoji: '🍔', img: 'images/royal-bestof.jpg', desc: '2 steaks 90g, fromage, bacon de dinde.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: 'Végétarien', emoji: '🍔', img: 'images/vegetarien.jpg', desc: 'Steak pané de blé.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Buffalo Burger', emoji: '🍔', img: 'images/buffalo-burger.jpg', desc: '2 steaks 80g, fromage, boeuf fumé.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: 'Provençal', emoji: '🍔', img: 'images/provencal.jpg', desc: '1 steak 150g façon bouchère, légumes grillés, oignons frits, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: 'Méditerranéen', emoji: '🍔', img: 'images/mediterraneen.jpg', desc: 'Steak revisité, poêlée de légumes, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: 'Auvergnat', emoji: '🍔', img: 'images/auvergnat.jpg', desc: '1 steak 150g, raclette, galette de pomme de terre.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: '180 Burger', emoji: '🍔', img: 'images/burger-180.jpg', desc: '1 steak 180g, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 7.5 }, { key: 'menu', label: 'Menu', value: 9.0 }] },
-      { name: '360 Burger', emoji: '🍔', img: 'images/burger-360.jpg', desc: '2 steaks 180g, fromage.', prices: [{ key: 'seul', label: 'Seul', value: 10.0 }, { key: 'menu', label: 'Menu', value: 12.0 }] },
-    ],
-  },
-  {
-    id: 'tacos', label: 'Tacos à composer', icon: '🌮',
-    note: 'Choisissez la taille, on compose le reste ensemble : garniture, viande(s), sauces et suppléments.',
-    items: [
-      { name: 'Tacos M', emoji: '🌮', img: 'images/tacos-hero.jpg', desc: '1 viande au choix.', badge: 'Étudiant 6,50 €', configurable: 'tacos', taille: 'M', viandeCount: 1, prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Tacos L', emoji: '🌮', img: 'images/tacos-hero.jpg', desc: '2 viandes au choix.', configurable: 'tacos', taille: 'L', viandeCount: 2, prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-      { name: 'Tacos XL', emoji: '🌮', img: 'images/tacos-hero.jpg', desc: '3 viandes au choix.', configurable: 'tacos', taille: 'XL', viandeCount: 3, prices: [{ key: 'seul', label: 'Seul', value: 8.5 }, { key: 'menu', label: 'Menu', value: 10.0 }] },
-    ],
-  },
-  {
-    id: 'box', label: 'Box', icon: '🍱',
-    items: [
-      { name: 'Box 1', emoji: '🍱', img: 'images/box-1.jpg', desc: 'Frites, poêlée de légumes, oignons frits, sauce au choix.', configurable: 'box', box: '1', prices: [{ key: '1v', label: '1 viande', value: 7.0, viandeCount: 1 }, { key: '2v', label: '2 viandes', value: 9.0, viandeCount: 2 }] },
-      { name: 'Box 2', emoji: '🍱', img: 'images/box-2.jpg', desc: 'Riz jaune crudités, salade tomate concombre maïs, poêlée de légumes.', configurable: 'box', box: '2', prices: [{ key: '1v', label: '1 viande', value: 7.0, viandeCount: 1 }, { key: '2v', label: '2 viandes', value: 9.0, viandeCount: 2 }] },
-    ],
-  },
-  {
-    id: 'accompagnements', label: 'Accompagnements', icon: '🍟',
-    items: [
-      { name: 'Tenders x5', emoji: '🍗', img: 'images/tenders.jpg', desc: '5 tenders de poulet croustillants.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-      { name: 'Onion Rings x5', emoji: '🧅', img: 'images/onion-rings.jpg', desc: '5 rondelles d’oignons panées.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-      { name: 'Nuggets x10', emoji: '🍗', img: 'images/nuggets.jpg', desc: '10 nuggets de poulet.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Chicken Wings x8', emoji: '🍗', img: 'images/chicken-wings.jpg', desc: '8 ailes de poulet.', prices: [{ key: 'seul', label: 'Seul', value: 6.5 }, { key: 'menu', label: 'Menu', value: 8.0 }] },
-      { name: 'Mozza Sticks x6', emoji: '🧀', img: 'images/mozza-sticks.jpg', desc: '6 bâtonnets de mozzarella panée.', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
-      { name: 'Jalapenos x8', emoji: '🌶️', img: 'images/jalapenos.jpg', desc: '8 jalapenos panés.', prices: [{ key: 'seul', label: 'Seul', value: 5.0 }, { key: 'menu', label: 'Menu', value: 6.5 }] },
-      { name: 'Barquette de Potatoes', emoji: '🥔', img: 'images/potatoes.jpg', desc: 'Potatoes maison.', prices: [{ key: 'seul', label: 'Seul', value: 4.5 }] },
-      { name: 'Barquette de Frites', emoji: '🍟', img: 'images/frites.jpg', desc: 'Frites fraîches.', prices: [{ key: 'seul', label: 'Seul', value: 3.5 }] },
-    ],
-  },
-  {
-    id: 'desserts', label: 'Kids & Desserts', icon: '🍰',
-    items: [
-      { name: 'Menu Kids', emoji: '🧒', desc: 'Cheeseburger ou Nuggets x5 + Frites. Pour les -12 ans.', prices: [{ key: 'seul', label: 'Menu', value: 5.5 }] },
-      { name: 'Tarte Daim', emoji: '🍰', desc: 'Part de tarte au Daim.', prices: [{ key: 'seul', label: 'Seul', value: 2.5 }] },
-      { name: 'Tiramisu', emoji: '🍮', desc: 'Tiramisu maison.', prices: [{ key: 'seul', label: 'Seul', value: 3.0 }] },
-    ],
-  },
+const TACOS_SIZES = [
+  { name: 'Tacos M', taille: 'M', viandeCount: 1, configurable: 'tacos', desc: '1 viande au choix.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
+  { name: 'Tacos L', taille: 'L', viandeCount: 2, configurable: 'tacos', desc: '2 viandes au choix.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
+  { name: 'Tacos XL', taille: 'XL', viandeCount: 3, configurable: 'tacos', desc: '3 viandes au choix.', prices: [{ key: 'seul', label: 'Seul', value: 8.5 }, { key: 'menu', label: 'Menu', value: 10.0 }] },
+];
+const BOX_TYPES = [
+  { name: 'Box 1', box: '1', configurable: 'box', desc: 'Frites, poêlée de légumes, oignons frits, sauce au choix.', prices: [{ key: '1v', label: '1 viande', value: 7.0, viandeCount: 1 }, { key: '2v', label: '2 viandes', value: 9.0, viandeCount: 2 }] },
+  { name: 'Box 2', box: '2', configurable: 'box', desc: 'Riz jaune crudités, salade tomate concombre maïs, poêlée de légumes.', prices: [{ key: '1v', label: '1 viande', value: 7.0, viandeCount: 1 }, { key: '2v', label: '2 viandes', value: 9.0, viandeCount: 2 }] },
+];
+
+const BOARD_SECTIONS = [
+  { id: 'assiettes', icon: '🍽️', label: 'Assiettes, Wraps & Pitas', img: 'images/carte-assiettes-wraps-pitas.jpg' },
+  { id: 'sandwichs', icon: '🥖', label: "Best'Of Sandwichs", img: 'images/carte-sandwichs.jpg' },
+  { id: 'box', icon: '🍱', label: 'Box & Accompagnements', img: 'images/carte-box-accompagnements.jpg', configType: 'box' },
+  { id: 'burgers', icon: '🍔', label: "Best'Of Burgers", img: 'images/carte-burgers.jpg' },
+  { id: 'tacos', icon: '🌮', label: 'Tacos à composer', img: 'images/carte-tacos.jpg', configType: 'tacos' },
+  { id: 'desserts', icon: '🍰', label: 'Kids & Desserts' },
+];
+
+const DESSERTS = [
+  { name: 'Menu Kids', desc: 'Cheeseburger ou Nuggets x5 + Frites. Pour les -12 ans.', price: 5.5 },
+  { name: 'Tarte Daim', desc: 'Part de tarte au Daim.', price: 2.5 },
+  { name: 'Tiramisu', desc: 'Tiramisu maison.', price: 3.0 },
 ];
 
 /* ============ STATE ============ */
@@ -158,75 +60,63 @@ const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
 /* ============ RENDER MENU ============ */
-function cardMedia(item, catId) {
-  const [a, b] = GRADIENTS[catId] || ['#8a5a35', '#1d1712'];
-  if (item.img) {
-    return `<div class="card-media" style="padding:0">
-      <img src="${item.img}" alt="${item.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-      <div class="media-glow"></div>
-      <div class="steam"><span></span><span></span><span></span></div>
-      ${item.badge ? `<span class="card-badge">${item.badge}</span>` : ''}
-    </div>`;
-  }
-  return `<div class="card-media" style="--card-a:${a};--card-b:${b}">
-    <div class="media-glow"></div>
-    <span class="card-emoji">${item.emoji || '🍴'}</span>
-    <div class="steam"><span></span><span></span><span></span></div>
-    ${item.badge ? `<span class="card-badge">${item.badge}</span>` : ''}
-  </div>`;
-}
-
-function cardFooter(item, catId, itemIdx) {
-  if (item.configurable) {
-    return `<div class="card-footer">
-      <button class="btn-add" data-open-configurator data-cat="${catId}" data-item="${itemIdx}">Composer et voir le prix →</button>
-    </div>`;
-  }
-  return `<div class="price-toggle">
-    ${item.prices.map((p) => `<span class="price-chip">${p.label} <span>${fmt(p.value)}</span></span>`).join('')}
-  </div>`;
-}
-
 function renderMenu() {
   const nav = $('#cat-nav');
   const footerLinks = $('#footer-cat-links');
   const wrap = $('#menu-container');
-  nav.innerHTML = MENU.map((c) => `<a href="#${c.id}">${c.icon} ${c.label}</a>`).join('');
-  footerLinks.innerHTML = MENU.map((c) => `<li><a href="#${c.id}">${c.label}</a></li>`).join('');
+  nav.innerHTML = BOARD_SECTIONS.map((c) => `<a href="#${c.id}">${c.icon} ${c.label}</a>`).join('');
+  footerLinks.innerHTML = BOARD_SECTIONS.map((c) => `<li><a href="#${c.id}">${c.label}</a></li>`).join('');
 
-  wrap.innerHTML = MENU.map((cat, catIdx) => `
-    <section class="menu-category${catIdx % 2 ? ' alt' : ''}" id="${cat.id}">
-      <div class="container">
-        <div class="cat-heading reveal"><span class="icon">${cat.icon}</span><h2>${cat.label}</h2></div>
-        ${cat.note ? `<p class="cat-note reveal">${cat.note}</p>` : '<div style="margin-bottom:20px"></div>'}
-        <div class="menu-grid">
-          ${cat.items.map((item, itemIdx) => `
-            <article class="item-card reveal" data-cat="${cat.id}" data-item="${itemIdx}">
-              ${cardMedia(item, cat.id)}
-              <div class="card-body">
-                <h3>${item.name}</h3>
-                <p class="desc">${item.desc}</p>
-                ${cardFooter(item, cat.id, itemIdx)}
-              </div>
-            </article>
-          `).join('')}
+  wrap.innerHTML = BOARD_SECTIONS.map((section, i) => {
+    if (section.id === 'desserts') {
+      return `
+        <section class="board-section${i % 2 ? ' alt' : ''}" id="desserts">
+          <div class="container">
+            <div class="cat-heading reveal"><span class="icon">${section.icon}</span><h2>${section.label}</h2></div>
+            <ul class="dessert-list reveal">
+              ${DESSERTS.map((d) => `
+                <li>
+                  <div><h3>${d.name}</h3><p>${d.desc}</p></div>
+                  <span class="dessert-price">${fmt(d.price)}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        </section>`;
+    }
+
+    let pills = '';
+    if (section.configType === 'tacos') {
+      pills = `<div class="board-pills reveal">
+        ${TACOS_SIZES.map((t, idx) => `<button class="pill-btn" data-config-type="tacos" data-config-idx="${idx}">🌮 Composer un ${t.name} — dès ${fmt(t.prices[0].value)}</button>`).join('')}
+      </div>`;
+    } else if (section.configType === 'box') {
+      pills = `<div class="board-pills reveal">
+        ${BOX_TYPES.map((b, idx) => `<button class="pill-btn" data-config-type="box" data-config-idx="${idx}">🍱 Composer la ${b.name} — dès ${fmt(b.prices[0].value)}</button>`).join('')}
+      </div>`;
+    }
+
+    return `
+      <section class="board-section${i % 2 ? ' alt' : ''}" id="${section.id}">
+        <div class="container">
+          <div class="cat-heading reveal"><span class="icon">${section.icon}</span><h2>${section.label}</h2></div>
+          <div class="board-photo-wrap reveal">
+            <img class="board-photo" src="${section.img}" alt="Carte ${section.label}" loading="lazy">
+            <div class="media-glow"></div>
+            <div class="steam"><span></span><span></span><span></span></div>
+          </div>
+          ${pills}
         </div>
-      </div>
-    </section>
-  `).join('');
+      </section>`;
+  }).join('');
 }
 
-function getItem(catId, itemIdx) {
-  const cat = MENU.find((c) => c.id === catId);
-  return { cat, item: cat.items[itemIdx] };
-}
-
-/* ============ CARD CLICKS ============ */
 document.addEventListener('click', (e) => {
-  const openConfig = e.target.closest('[data-open-configurator]');
-  if (openConfig) {
-    const { item } = getItem(openConfig.dataset.cat, parseInt(openConfig.dataset.item, 10));
-    openConfigurator(item);
+  const pill = e.target.closest('[data-config-type]');
+  if (pill) {
+    const type = pill.dataset.configType;
+    const idx = parseInt(pill.dataset.configIdx, 10);
+    openConfigurator(type === 'tacos' ? TACOS_SIZES[idx] : BOX_TYPES[idx]);
   }
 });
 
@@ -420,21 +310,12 @@ $('#carte-scroll').addEventListener('click', (e) => {
 $('#lightbox-close').addEventListener('click', () => $('#lightbox').classList.remove('visible'));
 $('#lightbox').addEventListener('click', (e) => { if (e.target.id === 'lightbox') $('#lightbox').classList.remove('visible'); });
 
-/* ============ NAV / BURGER / SEARCH ============ */
+/* ============ NAV / BURGER ============ */
 const header = $('#header');
 $('#burger').addEventListener('click', () => header.classList.toggle('open'));
 
-$('#search-input').addEventListener('input', (e) => {
-  const q = e.target.value.trim().toLowerCase();
-  $$('.item-card').forEach((card) => {
-    const name = $('h3', card).textContent.toLowerCase();
-    const desc = $('.desc', card).textContent.toLowerCase();
-    card.style.display = !q || name.includes(q) || desc.includes(q) ? '' : 'none';
-  });
-});
-
 function setupScrollSpy() {
-  const sections = MENU.map((c) => document.getElementById(c.id)).filter(Boolean);
+  const sections = BOARD_SECTIONS.map((c) => document.getElementById(c.id)).filter(Boolean);
   const links = $$('#cat-nav a');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
