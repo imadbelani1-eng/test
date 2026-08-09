@@ -402,6 +402,13 @@ function toggleModal(sel, open) {
 $('#close-configurator').addEventListener('click', () => { toggleModal('#configurator-overlay', false); configState = null; });
 $('#configurator-overlay').addEventListener('click', (e) => { if (e.target.id === 'configurator-overlay') { toggleModal('#configurator-overlay', false); configState = null; } });
 
+/* ============ LOCATION (WAZE / GOOGLE MAPS) ============ */
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.open-location')) toggleModal('#location-overlay', true);
+});
+$('#close-location').addEventListener('click', () => toggleModal('#location-overlay', false));
+$('#location-overlay').addEventListener('click', (e) => { if (e.target.id === 'location-overlay') toggleModal('#location-overlay', false); });
+
 /* ============ CARTE GALLERY LIGHTBOX ============ */
 $('#carte-scroll').addEventListener('click', (e) => {
   const img = e.target.closest('img');
