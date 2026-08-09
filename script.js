@@ -150,8 +150,7 @@ const MENU = [
 ];
 
 /* ============ STATE ============ */
-let cart = JSON.parse(localStorage.getItem('bof_cart') || '[]');
-let uidCounter = 1;
+const RESTAURANT_TEL = '+33478000000';
 let configState = null;
 
 const fmt = (n) => n.toFixed(2).replace('.', ',') + ' €';
@@ -180,22 +179,11 @@ function cardMedia(item, catId) {
 function cardFooter(item, catId, itemIdx) {
   if (item.configurable) {
     return `<div class="card-footer">
-      <button class="btn-add" data-open-configurator data-cat="${catId}" data-item="${itemIdx}">Personnaliser →</button>
+      <button class="btn-add" data-open-configurator data-cat="${catId}" data-item="${itemIdx}">Composer et voir le prix →</button>
     </div>`;
   }
-  const prices = item.prices;
-  const chips = prices.length > 1
-    ? `<div class="price-toggle" data-price-group>
-        ${prices.map((p, i) => `<button class="price-chip${i === 0 ? ' active' : ''}" data-price-key="${p.key}" data-price-value="${p.value}">${p.label} <span>${fmt(p.value)}</span></button>`).join('')}
-      </div>`
-    : '';
-  return `<div class="card-body-footer">
-    ${chips}
-    <div class="card-footer">
-      <button class="btn-add" data-add-simple data-cat="${catId}" data-item="${itemIdx}" data-price="${prices[0].value}">
-        Ajouter — <span class="add-price">${fmt(prices[0].value)}</span>
-      </button>
-    </div>
+  return `<div class="price-toggle">
+    ${item.prices.map((p) => `<span class="price-chip">${p.label} <span>${fmt(p.value)}</span></span>`).join('')}
   </div>`;
 }
 
@@ -233,146 +221,13 @@ function getItem(catId, itemIdx) {
   return { cat, item: cat.items[itemIdx] };
 }
 
-/* ============ CART ============ */
-function saveCart() { localStorage.setItem('bof_cart', JSON.stringify(cart)); }
-
-function addToCart(line) {
-  cart.push({ uid: uidCounter++, qty: 1, ...line });
-  saveCart();
-  renderCart();
-  showToast(`${line.name} ajouté au panier`);
-  bounceCartBtn();
-}
-
-function changeQty(uid, delta) {
-  const line = cart.find((l) => l.uid === uid);
-  if (!line) return;
-  line.qty += delta;
-  if (line.qty <= 0) cart = cart.filter((l) => l.uid !== uid);
-  saveCart();
-  renderCart();
-}
-
-function removeLine(uid) {
-  cart = cart.filter((l) => l.uid !== uid);
-  saveCart();
-  renderCart();
-}
-
-function cartTotal() { return cart.reduce((sum, l) => sum + l.unitPrice * l.qty, 0); }
-function cartCount() { return cart.reduce((sum, l) => sum + l.qty, 0); }
-
-function renderCart() {
-  const itemsWrap = $('#cart-items');
-  const total = cartTotal();
-  const count = cartCount();
-
-  itemsWrap.innerHTML = cart.length
-    ? cart.map((l) => `
-      <div class="cart-line">
-        <div class="cart-line-info">
-          <h4>${l.name}</h4>
-          <p>${l.variant || ''}</p>
-          <div class="cart-line-bottom">
-            <div class="qty-stepper">
-              <button data-qty-minus="${l.uid}" aria-label="Retirer un">−</button>
-              <span>${l.qty}</span>
-              <button data-qty-plus="${l.uid}" aria-label="Ajouter un">+</button>
-            </div>
-            <span class="cart-line-price">${fmt(l.unitPrice * l.qty)}</span>
-          </div>
-          <button class="cart-line-remove" data-remove="${l.uid}">Retirer</button>
-        </div>
-      </div>
-    `).join('')
-    : '<p class="cart-empty">Votre panier est vide pour l’instant. Allez faire un tour du côté du menu 👀</p>';
-
-  $('#cart-total').textContent = fmt(total);
-  $('#cart-count').textContent = count;
-  $('#cart-fab-count').textContent = `${count} article${count > 1 ? 's' : ''}`;
-  $('#cart-fab-total').textContent = fmt(total);
-  $('#open-checkout').disabled = cart.length === 0;
-  $('#cart-fab').classList.toggle('visible', count > 0 && !$('#cart-drawer').classList.contains('open'));
-}
-
-function bounceCartBtn() {
-  const btn = $('#cart-btn');
-  btn.style.transform = 'scale(1.15)';
-  setTimeout(() => { btn.style.transform = ''; }, 180);
-}
-
-function flyToCart(fromEl, emoji) {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const fromRect = fromEl.getBoundingClientRect();
-  const toRect = $('#cart-btn').getBoundingClientRect();
-  const dot = document.createElement('div');
-  dot.className = 'fly-dot';
-  dot.textContent = emoji || '🔥';
-  dot.style.left = `${fromRect.left + fromRect.width / 2}px`;
-  dot.style.top = `${fromRect.top + fromRect.height / 2}px`;
-  document.body.appendChild(dot);
-  requestAnimationFrame(() => {
-    dot.style.left = `${toRect.left + toRect.width / 2}px`;
-    dot.style.top = `${toRect.top + toRect.height / 2}px`;
-    dot.style.setProperty('--scale', '0.25');
-    dot.style.opacity = '0.15';
-  });
-  setTimeout(() => dot.remove(), 650);
-}
-
-function showToast(msg) {
-  const toast = $('#toast');
-  toast.textContent = msg;
-  toast.classList.add('visible');
-  clearTimeout(showToast._t);
-  showToast._t = setTimeout(() => toast.classList.remove('visible'), 2200);
-}
-
-function openCartDrawer(open) {
-  $('#cart-drawer').classList.toggle('open', open);
-  $('#drawer-backdrop').classList.toggle('visible', open);
-  if (open) $('#cart-fab').classList.remove('visible');
-  else renderCart();
-}
-
-/* ============ SIMPLE ADD / PRICE TOGGLE ============ */
+/* ============ CARD CLICKS ============ */
 document.addEventListener('click', (e) => {
-  const chip = e.target.closest('[data-price-key]');
-  if (chip) {
-    const group = chip.closest('[data-price-group]');
-    $$('.price-chip', group).forEach((c) => c.classList.remove('active'));
-    chip.classList.add('active');
-    const addBtn = $('[data-add-simple]', group.closest('.card-body'));
-    addBtn.dataset.price = chip.dataset.priceValue;
-    addBtn.dataset.priceKey = chip.dataset.priceKey;
-    $('.add-price', addBtn).textContent = fmt(parseFloat(chip.dataset.priceValue));
-    return;
-  }
-
-  const addBtn = e.target.closest('[data-add-simple]');
-  if (addBtn) {
-    const { cat, item } = getItem(addBtn.dataset.cat, parseInt(addBtn.dataset.item, 10));
-    const value = parseFloat(addBtn.dataset.price);
-    const key = addBtn.dataset.priceKey || item.prices[0].key;
-    const priceDef = item.prices.find((p) => p.key === key) || item.prices[0];
-    flyToCart(addBtn, item.emoji);
-    addToCart({ name: item.name, variant: priceDef.label, unitPrice: value });
-    return;
-  }
-
   const openConfig = e.target.closest('[data-open-configurator]');
   if (openConfig) {
     const { item } = getItem(openConfig.dataset.cat, parseInt(openConfig.dataset.item, 10));
     openConfigurator(item);
-    return;
   }
-
-  const qtyPlus = e.target.closest('[data-qty-plus]');
-  if (qtyPlus) return changeQty(parseInt(qtyPlus.dataset.qtyPlus, 10), 1);
-  const qtyMinus = e.target.closest('[data-qty-minus]');
-  if (qtyMinus) return changeQty(parseInt(qtyMinus.dataset.qtyMinus, 10), -1);
-  const remove = e.target.closest('[data-remove]');
-  if (remove) return removeLine(parseInt(remove.dataset.remove, 10));
 });
 
 /* ============ CONFIGURATOR ============ */
@@ -492,8 +347,8 @@ function renderConfigurator() {
     : (configState.viandes.size === viandeCount);
 
   html += `<div class="config-footer">
-    <div class="config-total"><span>Total</span>${fmt(configTotal())}</div>
-    <button class="btn btn-primary" id="config-add" ${ready ? '' : 'disabled'}>Ajouter au panier</button>
+    <div class="config-total"><span>Total estimé</span>${fmt(configTotal())}</div>
+    <button class="btn btn-primary" id="config-call" ${ready ? '' : 'disabled'}>📞 Appeler pour commander</button>
   </div>`;
 
   $('#configurator-content').innerHTML = html;
@@ -531,21 +386,10 @@ document.addEventListener('click', (e) => {
     configState.extras.has(name) ? configState.extras.delete(name) : configState.extras.add(name);
     return renderConfigurator();
   }
-  if (e.target.id === 'config-add') {
-    const parts = [];
-    if (configState.garniture) parts.push(configState.garniture);
-    if (configState.viandes.size) parts.push([...configState.viandes].join(', '));
-    if (configState.sauces.size) parts.push(`Sauces : ${[...configState.sauces].join(', ')}`);
-    if (configState.extras.size) parts.push(`+ ${[...configState.extras].join(', ')}`);
-    const priceDef = configState.item.prices.find((p) => p.key === configState.priceKey);
-    flyToCart(e.target, configState.item.emoji);
-    addToCart({
-      name: `${configState.item.name} (${configState.type === 'tacos' ? configState.item.taille : 'Box ' + configState.item.box})`,
-      variant: `${priceDef.label} · ${parts.join(' — ')}`,
-      unitPrice: configTotal(),
-    });
+  if (e.target.id === 'config-call') {
     toggleModal('#configurator-overlay', false);
     configState = null;
+    window.location.href = `tel:${RESTAURANT_TEL}`;
   }
 });
 
@@ -557,109 +401,6 @@ function toggleModal(sel, open) {
 
 $('#close-configurator').addEventListener('click', () => { toggleModal('#configurator-overlay', false); configState = null; });
 $('#configurator-overlay').addEventListener('click', (e) => { if (e.target.id === 'configurator-overlay') { toggleModal('#configurator-overlay', false); configState = null; } });
-
-/* ============ CHECKOUT ============ */
-let orderMode = 'emporter';
-
-function renderCheckout() {
-  const total = cartTotal();
-  const html = `
-    <div class="config-header">
-      <h2>Finaliser la commande</h2>
-      <p>Vérifiez votre commande puis laissez-nous vos coordonnées.</p>
-    </div>
-    <ul class="checkout-summary">
-      ${cart.map((l) => `<li><span>${l.qty} × ${l.name}${l.variant ? `<small>${l.variant}</small>` : ''}</span><span>${fmt(l.unitPrice * l.qty)}</span></li>`).join('')}
-    </ul>
-    <div class="checkout-total"><span>Total</span><span>${fmt(total)}</span></div>
-    <div class="mode-toggle">
-      <button type="button" data-mode="emporter" class="${orderMode === 'emporter' ? 'active' : ''}">À emporter</button>
-      <button type="button" data-mode="surplace" class="${orderMode === 'surplace' ? 'active' : ''}">Sur place</button>
-    </div>
-    <form id="checkout-form">
-      <div class="form-grid">
-        <div class="form-field"><label for="ck-name">Nom</label><input id="ck-name" required placeholder="Votre nom"></div>
-        <div class="form-field"><label for="ck-phone">Téléphone</label><input id="ck-phone" type="tel" required placeholder="06 12 34 56 78"></div>
-      </div>
-      <div class="form-grid full">
-        <div class="form-field"><label for="ck-note">Note (optionnel)</label><textarea id="ck-note" rows="2" placeholder="Sans oignons, allergie…"></textarea></div>
-      </div>
-      <button type="submit" class="btn btn-primary btn-block">Confirmer ma commande — ${fmt(total)}</button>
-    </form>
-  `;
-  $('#checkout-content').innerHTML = html;
-}
-
-function renderSuccess() {
-  const orderNum = 'BF-' + Math.floor(1000 + Math.random() * 9000);
-  const eta = new Date(Date.now() + 20 * 60000);
-  const etaStr = eta.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  const readyLabel = orderMode === 'emporter' ? 'Prête à récupérer' : 'Prête à servir';
-  $('#checkout-content').innerHTML = `
-    <div class="success-screen">
-      <div class="success-icon">🔥</div>
-      <h2>Commande confirmée !</h2>
-      <div class="order-number">Commande ${orderNum}</div>
-      <div class="progress-tracker">
-        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-        <div class="progress-steps">
-          <div class="progress-step active" data-step="1"><span class="step-dot">✓</span><span>Reçue</span></div>
-          <div class="progress-step" data-step="2"><span class="step-dot">🔥</span><span>En cuisine</span></div>
-          <div class="progress-step" data-step="3"><span class="step-dot">🛍️</span><span>${readyLabel}</span></div>
-        </div>
-      </div>
-      <p class="eta" id="eta-text">${orderMode === 'emporter' ? 'À récupérer' : 'Servie sur place'} vers <strong>${etaStr}</strong>. Merci, ça va être chaud 🔥</p>
-      <button class="btn btn-outline btn-block" id="new-order">Nouvelle commande</button>
-    </div>
-  `;
-
-  const fill = $('#progress-fill');
-  const steps = $$('.progress-step');
-  const timers = [
-    setTimeout(() => { fill.style.width = '55%'; steps[1].classList.add('active'); }, 1600),
-    setTimeout(() => {
-      fill.style.width = '100%';
-      steps[2].classList.add('active');
-      $('#eta-text').textContent = orderMode === 'emporter'
-        ? 'Votre commande est prête, venez la récupérer 🔥'
-        : 'Votre commande arrive à table 🔥';
-    }, 4200),
-  ];
-
-  $('#new-order').addEventListener('click', () => {
-    timers.forEach(clearTimeout);
-    cart = [];
-    saveCart();
-    renderCart();
-    toggleModal('#checkout-overlay', false);
-  });
-}
-
-$('#open-checkout').addEventListener('click', () => {
-  openCartDrawer(false);
-  renderCheckout();
-  toggleModal('#checkout-overlay', true);
-});
-$('#close-checkout').addEventListener('click', () => toggleModal('#checkout-overlay', false));
-$('#checkout-overlay').addEventListener('click', (e) => { if (e.target.id === 'checkout-overlay') toggleModal('#checkout-overlay', false); });
-
-document.addEventListener('click', (e) => {
-  const modeBtn = e.target.closest('[data-mode]');
-  if (modeBtn) { orderMode = modeBtn.dataset.mode; renderCheckout(); }
-});
-document.addEventListener('submit', (e) => {
-  if (e.target.id === 'checkout-form') {
-    e.preventDefault();
-    renderSuccess();
-  }
-});
-
-/* ============ CART UI WIRING ============ */
-$('#cart-btn').addEventListener('click', () => openCartDrawer(true));
-$('#cart-fab').addEventListener('click', () => openCartDrawer(true));
-$('#close-cart').addEventListener('click', () => openCartDrawer(false));
-$('#drawer-backdrop').addEventListener('click', () => openCartDrawer(false));
-$('#hero-order-btn').addEventListener('click', () => openCartDrawer(true));
 
 /* ============ CARTE GALLERY LIGHTBOX ============ */
 $('#carte-scroll').addEventListener('click', (e) => {
@@ -713,6 +454,5 @@ function setupReveal() {
 /* ============ INIT ============ */
 $('#year').textContent = new Date().getFullYear();
 renderMenu();
-renderCart();
 setupScrollSpy();
 setupReveal();
