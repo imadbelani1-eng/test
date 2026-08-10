@@ -104,6 +104,9 @@ function renderMenu() {
             <div class="board-photo-wrap">
               <img class="board-photo" src="${section.img}" alt="Carte ${section.label}" loading="lazy">
               <div class="media-glow"></div>
+              <div class="steam-source" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
             </div>
             <div class="steam" aria-hidden="true">
               <span></span><span></span><span></span><span></span><span></span>
