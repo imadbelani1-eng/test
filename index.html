@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best Of Burgers — Kebab, Tacos, Burgers Halal</title>
+<meta name="description" content="Best Of Burgers : kebab, tacos, burgers et sandwichs 100% halal. Découvrez la carte, composez votre tacos, puis appelez le restaurant pour confirmer votre commande.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="container top-bar-inner">
+    <span class="top-bar-item">🕘 Ouvre à 12h00</span>
+    <button class="top-bar-item top-bar-location open-location" type="button">📍 284 Rue de Bourgogne, 45000 Orléans</button>
+  </div>
+</div>
+
+<header class="site-header" id="header">
+  <div class="container header-inner">
+    <a href="#accueil" class="logo">Best Of <span class="logo-food">Burgers</span></a>
+
+    <nav class="cat-nav" id="cat-nav" aria-label="Catégories du menu"></nav>
+
+    <div class="header-actions">
+      <a href="tel:+33961643625" class="call-btn">📞 09 61 64 36 25</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="accueil">
+  <div class="hero-bg" style="background-image:url('images/hero-burger.jpg')" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-smoke" aria-hidden="true">
+    <span class="ember" style="--x:12%; --d:0s"></span>
+    <span class="ember" style="--x:28%; --d:1.4s"></span>
+    <span class="ember" style="--x:52%; --d:0.6s"></span>
+    <span class="ember" style="--x:68%; --d:2.1s"></span>
+    <span class="ember" style="--x:82%; --d:1s"></span>
+    <span class="ember" style="--x:40%; --d:2.8s"></span>
+    <div class="smoke-col" style="--x:20%"></div>
+    <div class="smoke-col" style="--x:50%"></div>
+    <div class="smoke-col" style="--x:78%"></div>
+  </div>
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="kicker">🔥 100% Halal · Fait minute</p>
+      <h1>Le kebab, le tacos et le burger qui vous font <span class="hero-highlight">revenir</span>.</h1>
+      <p class="hero-sub">Découvrez notre carte, composez votre tacos et appelez-nous pour confirmer votre commande — comme sur place.</p>
+      <div class="hero-actions">
+        <a href="#menu-start" class="btn btn-primary">Voir notre menu</a>
+        <a href="tel:+33961643625" class="btn btn-outline">📞 Appeler pour commander</a>
+      </div>
+      <div class="hero-badges">
+        <span>🕌 Certifié Halal</span>
+        <span>⏱️ Prêt en 15 min</span>
+        <span>⭐ 4,2/5 sur Google</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-section" id="services">
+  <div class="container">
+    <p class="eyebrow center">Nos services</p>
+    <h2 class="section-title center">Une expérience pensée pour vous</h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">🍽️</span>
+        <h3>Sur place</h3>
+        <p>Salle et terrasse pour déguster votre commande fraîchement préparée.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🥡</span>
+        <h3>À emporter</h3>
+        <p>Appelez, on prépare votre commande et vous repartez en 15 minutes.</p>
+      </div>
+      <div class="service-card service-card-delivery reveal">
+        <span class="service-icon">🛵</span>
+        <h3>Livraison</h3>
+        <p>Faites-vous livrer partout à Orléans via Deliveroo ou Uber Eats.</p>
+        <div class="service-delivery-buttons">
+          <a class="delivery-btn delivery-deliveroo" href="https://deliveroo.fr/" target="_blank" rel="noopener">Deliveroo</a>
+          <a class="delivery-btn delivery-ubereats" href="https://www.ubereats.com/" target="_blank" rel="noopener">Uber Eats</a>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🕌</span>
+        <h3>100% Halal</h3>
+        <p>Toutes nos viandes sont certifiées halal, sans compromis sur le goût.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">👨‍👩‍👧‍👦</span>
+        <h3>Groupes & familles</h3>
+        <p>Box et menus multi-viandes pensés pour partager à plusieurs.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">📶</span>
+        <h3>Wifi & terrasse</h3>
+        <p>Wifi gratuit et terrasse ensoleillée pour prolonger la pause.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="carte-gallery">
+  <p class="eyebrow center">Notre carte</p>
+  <h2 class="section-title center">La carte, telle qu'affichée en boutique</h2>
+  <p class="carte-info">🕘 Ouvre à 12h00 &nbsp;·&nbsp; <button class="open-location" type="button">📍 284 Rue de Bourgogne, 45000 Orléans</button></p>
+  <div class="carte-scroll" id="carte-scroll">
+    <div class="carte-track" id="carte-track">
+      <div class="carte-slide"><img src="images/carte-assiettes-wraps-pitas.jpg" alt="Carte : assiettes, wraps, pitas et paninis" loading="lazy"><div class="carte-steam"><span></span><span></span><span></span><span></span></div></div>
+      <div class="carte-slide"><img src="images/carte-sandwichs.jpg" alt="Carte : Best'Of Sandwichs" loading="lazy"><div class="carte-steam"><span></span><span></span><span></span><span></span></div></div>
+      <div class="carte-slide"><img src="images/carte-box-accompagnements.jpg" alt="Carte : box et accompagnements" loading="lazy"><div class="carte-steam"><span></span><span></span><span></span><span></span></div></div>
+      <div class="carte-slide"><img src="images/carte-burgers.jpg" alt="Carte : Best'Of Burgers" loading="lazy"><div class="carte-steam"><span></span><span></span><span></span><span></span></div></div>
+      <div class="carte-slide"><img src="images/carte-tacos.jpg" alt="Carte : composez votre tacos" loading="lazy"><div class="carte-steam"><span></span><span></span><span></span><span></span></div></div>
+      <div class="carte-slide" aria-hidden="true"><img src="images/carte-assiettes-wraps-pitas.jpg" alt="" loading="lazy"><div class="carte-steam"><span></span><span></span><span></span><span></span></div></div>
+      <div class="carte-slide" aria-hidden="true"><img src="images/carte-sandwichs.jpg" alt="" loading="lazy"><div class="carte-steam"><span></span><span></span><span></span><span></span></div></div>
+      <div class="carte-slide" aria-hidden="true"><img src="images/carte-box-accompagnements.jpg" alt="" loading="lazy"><div class="carte-steam"><span></span><span></span><span></span><span></span></div></div>
+      <div class="carte-slide" aria-hidden="true"><img src="images/carte-burgers.jpg" alt="" loading="lazy"><div class="carte-steam"><span></span><span></span><span></span><span></span></div></div>
+      <div class="carte-slide" aria-hidden="true"><img src="images/carte-tacos.jpg" alt="" loading="lazy"><div class="carte-steam"><span></span><span></span><span></span><span></span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <button class="modal-close" id="lightbox-close" aria-label="Fermer">×</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<div class="cat-nav-anchor" id="menu-start"></div>
+
+<main class="menu-wrap" id="menu-container"></main>
+
+<section class="promo-strip">
+  <div class="container promo-inner">
+    <div>
+      <h2>Composez votre Tacos, du M au XL.</h2>
+      <p>1, 2 ou 3 viandes au choix, garniture, sauces et suppléments — le configurateur fait le calcul pour vous.</p>
+    </div>
+    <a href="#tacos" class="btn btn-primary">Je compose mon tacos 🌮</a>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <p class="eyebrow center">Contact & avis</p>
+    <h2 class="section-title center">Restons en contact</h2>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:contact@bestofburgers.fr">
+        <span class="contact-icon">📧</span>
+        <span class="contact-label">Email</span>
+        <span class="contact-value">contact@bestofburgers.fr</span>
+      </a>
+      <a class="contact-card" href="tel:+33961643625">
+        <span class="contact-icon">📞</span>
+        <span class="contact-label">Téléphone</span>
+        <span class="contact-value">09 61 64 36 25</span>
+      </a>
+      <a class="contact-card" href="https://www.facebook.com/search/top?q=Best%20Of%20Burger%20Orl%C3%A9ans" target="_blank" rel="noopener">
+        <span class="contact-icon">📘</span>
+        <span class="contact-label">Facebook</span>
+        <span class="contact-value">Voir la page</span>
+      </a>
+      <a class="contact-card contact-card-review" href="https://www.google.com/search?sca_esv=03da492ea3355410&sxsrf=APpeQnsftq493dTChZUHpbmfjpmqeVVE9A:1786316864964&q=Best+Of+Burger+Avis&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxI2sjQzNDcyNrQwNja1NDIwMbS02MDI-IpR2Cm1uETBP03BqbQoPbVIwbEss3gRKzZRANPkA35GAAAA&rldimm=2961723183359204198&tbm=lcl&hl=fr-FR&sa=X&ved=2ahUKEwjY1cTx1JSWAxWjVKQEHdd5M3gQ9fQKegQIOBAG&biw=1600&bih=773&dpr=1#lkt=LocalPoiReviews" target="_blank" rel="noopener">
+        <span class="contact-icon">⭐</span>
+        <span class="contact-label">Avis Google</span>
+        <span class="contact-value">Laisser un avis</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <div class="logo footer-logo">Best Of <span class="logo-food">Burgers</span></div>
+      <p>🕌 Toutes nos viandes sont 100% Halal.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Infos pratiques</h3>
+      <ul>
+        <li><button class="open-location" type="button">📍 284 Rue de Bourgogne, 45000 Orléans</button></li>
+        <li><a href="tel:+33961643625">📞 09 61 64 36 25</a></li>
+        <li>🕘 Ouvre à 12h00 (horaires à confirmer)</li>
+        <li>💶 1–10 € par personne</li>
+        <li>🌳 Terrasse · 🌿 Option végétarienne · 📶 Wi-Fi</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Le menu</h3>
+      <ul id="footer-cat-links"></ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; <span id="year"></span> Best Of Burgers. Toutes les photos sont des illustrations et ne sont en aucun cas contractuelles.</p>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="location-overlay">
+  <div class="modal location-modal" id="location-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="close-location" aria-label="Fermer">×</button>
+    <div class="config-header">
+      <h2>Se rendre au restaurant</h2>
+      <p>284 Rue de Bourgogne, 45000 Orléans</p>
+    </div>
+    <div class="location-options">
+      <a class="location-option" href="https://waze.com/ul?q=284%20Rue%20de%20Bourgogne%2C%2045000%20Orl%C3%A9ans&navigate=yes" target="_blank" rel="noopener">
+        <span class="location-option-icon">🧭</span>
+        <span>Ouvrir dans Waze</span>
+      </a>
+      <a class="location-option" href="https://www.google.com/maps/dir/?api=1&destination=284%20Rue%20de%20Bourgogne%2C%2045000%20Orl%C3%A9ans" target="_blank" rel="noopener">
+        <span class="location-option-icon">🗺️</span>
+        <span>Ouvrir dans Google Maps</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="configurator-overlay">
+  <div class="modal configurator" id="configurator-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="close-configurator" aria-label="Fermer">×</button>
+    <div id="configurator-content"></div>
+  </div>
+</div>
+
+<a href="tel:+33961643625" class="call-fab" aria-label="Appeler le restaurant">
+  <span class="call-fab-icon">📞</span>
+  <span>Appeler pour commander</span>
+</a>
+
+<script src="script.js"></script>
+</body>
+</html>
