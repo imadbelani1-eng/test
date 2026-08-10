@@ -103,7 +103,7 @@ function renderMenu() {
           <div class="board-photo-wrap reveal">
             <img class="board-photo" src="${section.img}" alt="Carte ${section.label}" loading="lazy">
             <div class="media-glow"></div>
-            <div class="steam"><span></span><span></span><span></span></div>
+            <div class="board-steam"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
           </div>
           ${pills}
         </div>
