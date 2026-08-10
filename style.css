@@ -287,9 +287,9 @@ h1, h2, h3 {
 .services-section { padding: 76px 0 64px; background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 .service-card {
@@ -314,9 +314,25 @@ h1, h2, h3 {
 }
 .service-card h3 { font-family: var(--font-body); text-transform: none; font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; }
 .service-card p { color: var(--muted); font-size: 0.88rem; }
-.service-card-delivery { display: flex; flex-direction: column; }
+.service-card-delivery, .service-card-locate { display: flex; flex-direction: column; }
 .service-delivery-buttons { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
 .service-delivery-buttons .delivery-btn { padding: 9px 16px; font-size: 0.78rem; }
+
+.locate-buttons { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.locate-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.78rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.locate-btn:hover { transform: translateY(-2px); }
+.locate-waze { background: #33ccff; color: #06282b; }
+.locate-waze:hover { box-shadow: 0 10px 20px -8px rgba(51, 204, 255, 0.5); }
+.locate-maps { background: #4285f4; color: #fff; }
+.locate-maps:hover { box-shadow: 0 10px 20px -8px rgba(66, 133, 244, 0.5); }
 .delivery-btn {
   display: inline-flex;
   align-items: center;
@@ -377,15 +393,16 @@ h1, h2, h3 {
   width: auto;
   cursor: zoom-in;
 }
-.carte-steam { position: absolute; inset: auto 0 0 0; height: 60%; pointer-events: none; }
+.carte-steam { position: absolute; inset: auto 0 0 0; height: 70%; pointer-events: none; }
 .carte-steam span {
   position: absolute;
   bottom: 0;
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(243, 234, 217, 0.4), rgba(243, 234, 217, 0) 72%);
+  background: radial-gradient(circle, rgba(240, 234, 224, 0.75), rgba(240, 234, 224, 0) 72%);
   filter: blur(10px);
+  opacity: 0;
   animation: puff 6s ease-in infinite;
 }
 .carte-steam span:nth-child(1) { left: 14%; animation-delay: 0s; }
@@ -444,37 +461,58 @@ h1, h2, h3 {
   pointer-events: none;
 }
 
-/* Smoke escaping upward off the top edge of the menu board photo */
+/* Smoke rising off the food in the photo itself, contained to its rounded corners */
+.steam-source { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.steam-source span {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(238, 231, 218, 0.8), rgba(238, 231, 218, 0) 70%);
+  filter: blur(9px);
+  opacity: 0;
+  animation: puff-source 6.5s ease-in infinite;
+}
+.steam-source span:nth-child(1) { left: 10%;  bottom: 6%;  width: 44px; height: 44px; animation-delay: 0s; }
+.steam-source span:nth-child(2) { left: 28%;  bottom: 24%; width: 60px; height: 60px; animation-delay: 1.2s; }
+.steam-source span:nth-child(3) { left: 46%;  bottom: 4%;  width: 40px; height: 40px; animation-delay: 2.4s; }
+.steam-source span:nth-child(4) { left: 64%;  bottom: 28%; width: 56px; height: 56px; animation-delay: 3.6s; }
+.steam-source span:nth-child(5) { left: 80%;  bottom: 10%; width: 42px; height: 42px; animation-delay: 4.8s; }
+.steam-source span:nth-child(6) { left: 92%;  bottom: 22%; width: 36px; height: 36px; animation-delay: 5.9s; }
+@keyframes puff-source {
+  0% { transform: translateY(0) scale(0.4); opacity: 0; }
+  18% { opacity: 0.85; }
+  75% { opacity: 0.35; }
+  100% { transform: translateY(-150px) scale(1.6); opacity: 0; }
+}
+
+/* Smoke escaping upward off the top edge of the menu board photo, picking up where steam-source left off */
 .steam {
   position: absolute;
   left: 6%;
   right: 6%;
   bottom: 100%;
-  height: 150px;
+  height: 170px;
   z-index: 2;
   pointer-events: none;
 }
 .steam span {
   position: absolute;
   bottom: -6px;
-  width: 46px;
-  height: 46px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(243, 234, 217, 0.55), rgba(243, 234, 217, 0) 72%);
-  filter: blur(9px);
+  background: radial-gradient(circle, rgba(242, 236, 226, 0.85), rgba(242, 236, 226, 0) 72%);
+  filter: blur(8px);
   opacity: 0;
-  animation: puff-rise 7s ease-in infinite;
+  animation: puff-rise 6.5s ease-in infinite;
 }
-.steam span:nth-child(1) { left: 8%; width: 40px; height: 40px; animation-delay: 0s; }
-.steam span:nth-child(2) { left: 26%; width: 56px; height: 56px; animation-delay: 1.3s; }
-.steam span:nth-child(3) { left: 48%; width: 36px; height: 36px; animation-delay: 2.6s; }
-.steam span:nth-child(4) { left: 66%; width: 52px; height: 52px; animation-delay: 4s; }
-.steam span:nth-child(5) { left: 86%; width: 38px; height: 38px; animation-delay: 5.3s; }
+.steam span:nth-child(1) { left: 10%; width: 42px; height: 42px; animation-delay: 0s; }
+.steam span:nth-child(2) { left: 28%; width: 58px; height: 58px; animation-delay: 1.2s; }
+.steam span:nth-child(3) { left: 46%; width: 38px; height: 38px; animation-delay: 2.4s; }
+.steam span:nth-child(4) { left: 64%; width: 54px; height: 54px; animation-delay: 3.6s; }
+.steam span:nth-child(5) { left: 80%; width: 40px; height: 40px; animation-delay: 4.8s; }
 @keyframes puff-rise {
   0% { transform: translateY(0) scale(0.5); opacity: 0; }
-  15% { opacity: 0.6; }
-  55% { opacity: 0.28; }
-  100% { transform: translateY(-120px) scale(1.9); opacity: 0; }
+  15% { opacity: 0.95; }
+  55% { opacity: 0.4; }
+  100% { transform: translateY(-130px) scale(2); opacity: 0; }
 }
 @keyframes puff {
   0% { transform: translateY(0) scale(0.6); opacity: 0; }
@@ -763,7 +801,7 @@ h1, h2, h3 {
   .top-bar-item:first-child { display: none; }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 980px) {
   .services-grid { grid-template-columns: 1fr 1fr; }
 }
 
@@ -784,7 +822,7 @@ h1, h2, h3 {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .smoke-col, .ember, .steam span, .carte-track, .carte-steam span, .btn, .reveal { animation: none !important; transition: none !important; }
+  .smoke-col, .ember, .steam span, .steam-source span, .carte-track, .carte-steam span, .btn, .reveal { animation: none !important; transition: none !important; }
   .carte-scroll { overflow-x: auto; }
   .reveal { opacity: 1; transform: none; }
 }
