@@ -100,10 +100,14 @@ function renderMenu() {
       <section class="board-section${i % 2 ? ' alt' : ''}" id="${section.id}">
         <div class="container">
           <div class="cat-heading reveal"><span class="icon">${section.icon}</span><h2>${section.label}</h2></div>
-          <div class="board-photo-wrap reveal">
-            <img class="board-photo" src="${section.img}" alt="Carte ${section.label}" loading="lazy">
-            <div class="media-glow"></div>
-            <div class="steam"><span></span><span></span><span></span></div>
+          <div class="board-frame reveal">
+            <div class="board-photo-wrap">
+              <img class="board-photo" src="${section.img}" alt="Carte ${section.label}" loading="lazy">
+              <div class="media-glow"></div>
+            </div>
+            <div class="steam" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
           </div>
           ${pills}
         </div>
