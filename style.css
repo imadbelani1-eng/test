@@ -349,7 +349,7 @@ h1, h2, h3 {
 .delivery-ubereats:hover { box-shadow: 0 10px 20px -8px rgba(6, 193, 103, 0.5); }
 
 /* ---------- Carte gallery ---------- */
-.carte-gallery { padding: 64px 0 12px; overflow: hidden; }
+.carte-gallery { padding: 64px 0 12px; overflow: hidden; scroll-margin-top: 76px; }
 .carte-gallery .eyebrow, .carte-gallery .section-title { padding: 0 24px; }
 .carte-info {
   display: flex;
