@@ -1,40 +1,10 @@
 /* ============ DATA ============ */
 
-const TACOS_GARNITURE = ['Crudités Emmental', 'Frites Sauce Fromagère', 'Crudités Mozzarella'];
-const TACOS_VIANDES = [
-  { name: 'Viande Kebab' }, { name: 'Chicken Curry' }, { name: 'Steak Haché' },
-  { name: 'Cordon Bleu' }, { name: 'Tenders' }, { name: 'Nuggets' },
-  { name: 'Kefta' }, { name: 'Merguez' }, { name: 'Poulet du Chef', extra: 1.5 },
-  { name: 'Poulet Champignons' },
-];
-const TACOS_SAUCES = ['Mayonnaise', 'Ketchup', 'Blanche', 'Tartare', 'Burger', 'Samouraï', 'Algérienne', 'Andalouse', 'Curry', 'Cheesy', 'Barbecue', 'Chili', 'Thai', 'Harissa', 'Moutarde', 'Poivre'];
-const TACOS_EXTRAS = [
-  { name: 'Fromage Raclette', price: 1.0 }, { name: 'Fromage de Chèvre', price: 1.0 },
-  { name: 'Fromage Cheddar', price: 0.8 }, { name: 'Vache qui rit', price: 1.0 },
-  { name: 'Boursin', price: 1.0 }, { name: 'Mozzarella', price: 1.0 },
-  { name: 'Emmental', price: 1.0 }, { name: 'Oeuf', price: 1.0 },
-  { name: 'Galette de Pomme de Terre', price: 1.3 }, { name: 'Boeuf Fumé', price: 1.4 },
-  { name: 'Bacon de Dinde', price: 1.4 }, { name: 'Sauce Cheddar', price: 1.5 },
-];
-const BOX_VIANDES = [
-  { name: 'Viande Kebab' }, { name: 'Chicken Curry' }, { name: 'Steak Haché' },
-  { name: 'Cordon Bleu' }, { name: 'Merguez' }, { name: 'Kefta' },
-  { name: 'Tenders', extra: 0.5 }, { name: 'Nuggets', extra: 0.5 },
-];
-const BOX_EXTRAS = [
-  { name: 'Bacon de Dinde', price: 1.4 }, { name: 'Boeuf Fumé', price: 1.4 },
-  { name: 'Oeuf', price: 1.0 }, { name: 'Sauce Fromagère', price: 1.5 }, { name: 'Sauce Cheddar', price: 1.5 },
-];
-
-const TACOS_SIZES = [
-  { name: 'Tacos M', taille: 'M', viandeCount: 1, configurable: 'tacos', desc: '1 viande au choix.', prices: [{ key: 'seul', label: 'Seul', value: 6.0 }, { key: 'menu', label: 'Menu', value: 7.5 }] },
-  { name: 'Tacos L', taille: 'L', viandeCount: 2, configurable: 'tacos', desc: '2 viandes au choix.', prices: [{ key: 'seul', label: 'Seul', value: 7.0 }, { key: 'menu', label: 'Menu', value: 8.5 }] },
-  { name: 'Tacos XL', taille: 'XL', viandeCount: 3, configurable: 'tacos', desc: '3 viandes au choix.', prices: [{ key: 'seul', label: 'Seul', value: 8.5 }, { key: 'menu', label: 'Menu', value: 10.0 }] },
-];
-const BOX_TYPES = [
-  { name: 'Box 1', box: '1', configurable: 'box', desc: 'Frites, poêlée de légumes, oignons frits, sauce au choix.', prices: [{ key: '1v', label: '1 viande', value: 7.0, viandeCount: 1 }, { key: '2v', label: '2 viandes', value: 9.0, viandeCount: 2 }] },
-  { name: 'Box 2', box: '2', configurable: 'box', desc: 'Riz jaune crudités, salade tomate concombre maïs, poêlée de légumes.', prices: [{ key: '1v', label: '1 viande', value: 7.0, viandeCount: 1 }, { key: '2v', label: '2 viandes', value: 9.0, viandeCount: 2 }] },
-];
+import {
+  TACOS_GARNITURE, TACOS_VIANDES, TACOS_SAUCES, TACOS_EXTRAS,
+  BOX_VIANDES, BOX_EXTRAS, TACOS_SIZES, BOX_TYPES, DESSERTS,
+  fmt, configBasePrice, configViandeCount, configTotal,
+} from './pricing.js';
 
 const BOARD_SECTIONS = [
   { id: 'assiettes', icon: '🍽️', label: 'Assiettes, Wraps & Pitas', img: 'images/carte-assiettes-wraps-pitas.jpg' },
@@ -45,17 +15,10 @@ const BOARD_SECTIONS = [
   { id: 'desserts', icon: '🍰', label: 'Kids & Desserts' },
 ];
 
-const DESSERTS = [
-  { name: 'Menu Kids', desc: 'Cheeseburger ou Nuggets x5 + Frites. Pour les -12 ans.', price: 5.5 },
-  { name: 'Tarte Daim', desc: 'Part de tarte au Daim.', price: 2.5 },
-  { name: 'Tiramisu', desc: 'Tiramisu maison.', price: 3.0 },
-];
-
 /* ============ STATE ============ */
 const RESTAURANT_TEL = '+33961643625';
 let configState = null;
 
-const fmt = (n) => n.toFixed(2).replace('.', ',') + ' €';
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
@@ -150,41 +113,6 @@ function openConfigurator(item) {
   toggleModal('#configurator-overlay', true);
 }
 
-function configBasePrice() {
-  const def = configState.item.prices.find((p) => p.key === configState.priceKey);
-  return def.value;
-}
-function configViandeCount() {
-  if (configState.type === 'tacos') return configState.item.viandeCount;
-  const def = configState.item.prices.find((p) => p.key === configState.priceKey);
-  return def.viandeCount;
-}
-function configTotal() {
-  let total = configBasePrice();
-  if (configState.type === 'tacos') {
-    configState.viandes.forEach((name) => {
-      const v = TACOS_VIANDES.find((x) => x.name === name);
-      if (v && v.extra) total += v.extra;
-    });
-    const extraSauces = Math.max(0, configState.sauces.size - 2);
-    total += extraSauces * 0.25;
-    configState.extras.forEach((name) => {
-      const x = TACOS_EXTRAS.find((e) => e.name === name);
-      if (x) total += x.price;
-    });
-  } else {
-    configState.viandes.forEach((name) => {
-      const v = BOX_VIANDES.find((x) => x.name === name);
-      if (v && v.extra) total += v.extra;
-    });
-    configState.extras.forEach((name) => {
-      const x = BOX_EXTRAS.find((e) => e.name === name);
-      if (x) total += x.price;
-    });
-  }
-  return total;
-}
-
 function optionHTML(name, selected, disabled, extraLabel) {
   return `<div class="option${selected ? ' selected' : ''}${disabled ? ' disabled' : ''}" data-option="${name}">
     <span>${name}</span>${extraLabel ? `<span class="extra">${extraLabel}</span>` : ''}
@@ -193,7 +121,7 @@ function optionHTML(name, selected, disabled, extraLabel) {
 
 function renderConfigurator() {
   const { item, type } = configState;
-  const viandeCount = configViandeCount();
+  const viandeCount = configViandeCount(configState);
   let html = `<div class="config-header">
     <h2>${item.name} — ${type === 'tacos' ? item.taille : `Box ${item.box}`}</h2>
     <p>${item.desc}</p>
@@ -244,7 +172,7 @@ function renderConfigurator() {
     : (configState.viandes.size === viandeCount);
 
   html += `<div class="config-footer">
-    <div class="config-total"><span>Total estimé</span>${fmt(configTotal())}</div>
+    <div class="config-total"><span>Total estimé</span>${fmt(configTotal(configState))}</div>
     <button class="btn btn-primary" id="config-call" ${ready ? '' : 'disabled'}>📞 Appeler pour commander</button>
   </div>`;
 

@@ -1,0 +1,11 @@
+{
+  "name": "best-of-burgers",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.4"
+  }
+}
