@@ -366,6 +366,7 @@ h1, h2, h3 {
 .carte-info .open-location:hover { color: var(--teal-light); }
 .carte-scroll {
   overflow: hidden;
+  padding-top: 80px;
   mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 }
@@ -373,16 +374,16 @@ h1, h2, h3 {
   display: flex;
   gap: 18px;
   width: max-content;
-  animation: carte-marquee 46s linear infinite;
+  animation: carte-marquee 27s linear infinite;
 }
 .carte-scroll:hover .carte-track { animation-play-state: paused; }
 @keyframes carte-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(calc(-50% - 9px)); }
 }
+.carte-frame { position: relative; flex: 0 0 auto; }
 .carte-slide {
   position: relative;
-  flex: 0 0 auto;
   overflow: hidden;
   border-radius: var(--radius);
   border: 1px solid var(--line);
@@ -409,6 +410,22 @@ h1, h2, h3 {
 .carte-steam span:nth-child(2) { left: 40%; width: 34px; height: 34px; animation-delay: 1.6s; }
 .carte-steam span:nth-child(3) { left: 64%; width: 40px; height: 40px; animation-delay: 3.1s; }
 .carte-steam span:nth-child(4) { left: 84%; width: 30px; height: 30px; animation-delay: 4.4s; }
+
+/* Smoke escaping upward off the top of each carte thumbnail */
+.carte-steam-escape { position: absolute; left: 8%; right: 8%; bottom: 100%; height: 90px; z-index: 2; pointer-events: none; }
+.carte-steam-escape span {
+  position: absolute;
+  bottom: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 236, 226, 0.85), rgba(242, 236, 226, 0) 72%);
+  filter: blur(7px);
+  opacity: 0;
+  animation: puff-rise 6s ease-in infinite;
+}
+.carte-steam-escape span:nth-child(1) { left: 10%; width: 30px; height: 30px; animation-delay: 0.3s; }
+.carte-steam-escape span:nth-child(2) { left: 40%; width: 40px; height: 40px; animation-delay: 1.8s; }
+.carte-steam-escape span:nth-child(3) { left: 66%; width: 28px; height: 28px; animation-delay: 3.2s; }
+.carte-steam-escape span:nth-child(4) { left: 86%; width: 34px; height: 34px; animation-delay: 4.6s; }
 
 .lightbox {
   position: fixed;
@@ -822,7 +839,7 @@ h1, h2, h3 {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .smoke-col, .ember, .steam span, .steam-source span, .carte-track, .carte-steam span, .btn, .reveal { animation: none !important; transition: none !important; }
+  .smoke-col, .ember, .steam span, .steam-source span, .carte-track, .carte-steam span, .carte-steam-escape span, .btn, .reveal { animation: none !important; transition: none !important; }
   .carte-scroll { overflow-x: auto; }
   .reveal { opacity: 1; transform: none; }
 }
