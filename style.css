@@ -699,6 +699,30 @@ h1, h2, h3 {
 }
 .call-fab-icon { font-size: 1.1rem; }
 
+.call-toast {
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  z-index: 500;
+  transform: translateX(-50%) translateY(-12px);
+  background: var(--ink-2);
+  border: 1px solid var(--gold);
+  color: var(--cream);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 14px 24px;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.call-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 560px) {
+  .call-toast { top: auto; bottom: 90px; }
+}
+
 .modal-close {
   background: var(--ink-3);
   border: 1px solid var(--line);

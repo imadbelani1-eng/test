@@ -287,6 +287,7 @@ document.addEventListener('click', (e) => {
   if (e.target.id === 'config-call') {
     toggleModal('#configurator-overlay', false);
     configState = null;
+    showCallToast();
     window.location.href = `tel:${RESTAURANT_TEL}`;
   }
 });
@@ -299,6 +300,21 @@ function toggleModal(sel, open) {
 
 $('#close-configurator').addEventListener('click', () => { toggleModal('#configurator-overlay', false); configState = null; });
 $('#configurator-overlay').addEventListener('click', (e) => { if (e.target.id === 'configurator-overlay') { toggleModal('#configurator-overlay', false); configState = null; } });
+
+/* ============ CALL NUMBER TOAST ============ */
+const RESTAURANT_TEL_DISPLAY = '09 61 64 36 25';
+let callToastTimer = null;
+function showCallToast() {
+  const toast = $('#call-toast');
+  if (!toast) return;
+  toast.textContent = `📞 ${RESTAURANT_TEL_DISPLAY}`;
+  toast.classList.add('visible');
+  clearTimeout(callToastTimer);
+  callToastTimer = setTimeout(() => toast.classList.remove('visible'), 3500);
+}
+document.addEventListener('click', (e) => {
+  if (e.target.closest('a[href^="tel:"]')) showCallToast();
+});
 
 /* ============ LOCATION (WAZE / GOOGLE MAPS) ============ */
 document.addEventListener('click', (e) => {
