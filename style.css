@@ -172,6 +172,8 @@ h1, h2, h3 {
   border-color: var(--teal);
   color: #06282b;
 }
+.cat-nav-carte { color: var(--gold); border-color: rgba(232, 182, 74, 0.4); }
+.cat-nav-carte:hover { color: var(--gold); border-color: var(--gold); }
 
 .header-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 
@@ -374,7 +376,7 @@ h1, h2, h3 {
   display: flex;
   gap: 18px;
   width: max-content;
-  animation: carte-marquee 27s linear infinite;
+  animation: carte-marquee 42s linear infinite;
 }
 .carte-scroll:hover .carte-track { animation-play-state: paused; }
 @keyframes carte-marquee {

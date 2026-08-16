@@ -64,7 +64,8 @@ function renderMenu() {
   const nav = $('#cat-nav');
   const footerLinks = $('#footer-cat-links');
   const wrap = $('#menu-container');
-  nav.innerHTML = BOARD_SECTIONS.map((c) => `<a href="#${c.id}">${c.icon} ${c.label}</a>`).join('');
+  nav.innerHTML = '<a href="#carte" class="cat-nav-carte">🗂️ Carte</a>'
+    + BOARD_SECTIONS.map((c) => `<a href="#${c.id}">${c.icon} ${c.label}</a>`).join('');
   footerLinks.innerHTML = BOARD_SECTIONS.map((c) => `<li><a href="#${c.id}">${c.label}</a></li>`).join('');
 
   wrap.innerHTML = BOARD_SECTIONS.map((section, i) => {
