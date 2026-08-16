@@ -387,8 +387,6 @@ h1, h2, h3 {
 .carte-slide {
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
 }
 .carte-slide img {
   display: block;
@@ -466,10 +464,6 @@ h1, h2, h3 {
 .board-frame { position: relative; max-width: 900px; margin: 0 auto; }
 .board-photo-wrap {
   position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
 }
 .board-photo { width: 100%; height: auto; display: block; }
 .media-glow {

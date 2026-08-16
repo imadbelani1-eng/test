@@ -37,11 +37,11 @@ const BOX_TYPES = [
 ];
 
 const BOARD_SECTIONS = [
-  { id: 'assiettes', icon: '🍽️', label: 'Assiettes, Wraps & Pitas', img: 'images/carte-assiettes-wraps-pitas.jpg' },
-  { id: 'sandwichs', icon: '🥖', label: "Best'Of Sandwichs", img: 'images/carte-sandwichs.jpg' },
-  { id: 'box', icon: '🍱', label: 'Box & Accompagnements', img: 'images/carte-box-accompagnements.jpg', configType: 'box' },
-  { id: 'burgers', icon: '🍔', label: "Best'Of Burgers", img: 'images/carte-burgers.jpg' },
-  { id: 'tacos', icon: '🌮', label: 'Tacos à composer', img: 'images/carte-tacos.jpg', configType: 'tacos' },
+  { id: 'assiettes', icon: '🍽️', label: 'Assiettes, Wraps & Pitas', img: 'images/carte-assiettes-wraps-pitas.webp' },
+  { id: 'sandwichs', icon: '🥖', label: "Best'Of Sandwichs", img: 'images/carte-sandwichs.webp' },
+  { id: 'box', icon: '🍱', label: 'Box & Accompagnements', img: 'images/carte-box-accompagnements.webp', configType: 'box' },
+  { id: 'burgers', icon: '🍔', label: "Best'Of Burgers", img: 'images/carte-burgers.webp' },
+  { id: 'tacos', icon: '🌮', label: 'Tacos à composer', img: 'images/carte-tacos.webp', configType: 'tacos' },
   { id: 'desserts', icon: '🍰', label: 'Kids & Desserts' },
 ];
 
