@@ -42,7 +42,7 @@ const BOARD_SECTIONS = [
   { id: 'box', icon: '🍱', label: 'Box & Accompagnements', img: 'images/carte-box-accompagnements.webp', configType: 'box' },
   { id: 'burgers', icon: '🍔', label: "Best'Of Burgers", img: 'images/carte-burgers.webp' },
   { id: 'tacos', icon: '🌮', label: 'Tacos à composer', img: 'images/carte-tacos.webp', configType: 'tacos' },
-  { id: 'desserts', icon: '🍰', label: 'Kids & Desserts' },
+  { id: 'desserts', icon: '🍰', label: 'Desserts & Boissons', configType: 'goodies' },
 ];
 
 const DESSERTS = [
@@ -50,6 +50,26 @@ const DESSERTS = [
   { name: 'Tarte Daim', desc: 'Part de tarte au Daim.', price: 2.5 },
   { name: 'Tiramisu', desc: 'Tiramisu maison.', price: 3.0 },
 ];
+
+const DRINKS = [
+  { name: 'Coca-Cola', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Coca-Cola Zero', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Fanta Orange', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Fanta Citron', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Sprite', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Ice Tea Citron', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Ice Tea Pêche', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Oasis Tropical', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Orangina', desc: 'Canette 33cl.', price: 2.0 },
+  { name: "Schweppes Agrum'", desc: 'Canette 33cl.', price: 2.0 },
+  { name: '7Up', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Perrier', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Minute Maid Orange', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Tropico', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Eau minérale', desc: 'Bouteille 50cl.', price: 2.0 },
+];
+
+const GOODIES = [...DESSERTS, ...DRINKS];
 
 /* ============ STATE ============ */
 const RESTAURANT_TEL = '+33961643625';
@@ -74,6 +94,7 @@ function renderMenu() {
         <section class="board-section${i % 2 ? ' alt' : ''}" id="desserts">
           <div class="container">
             <div class="cat-heading reveal"><span class="icon">${section.icon}</span><h2>${section.label}</h2></div>
+            <p class="dessert-subhead reveal">Desserts</p>
             <ul class="dessert-list reveal">
               ${DESSERTS.map((d) => `
                 <li>
@@ -82,6 +103,18 @@ function renderMenu() {
                 </li>
               `).join('')}
             </ul>
+            <p class="dessert-subhead reveal">Boissons <span class="hint">(2,00 € la canette)</span></p>
+            <ul class="dessert-list dessert-list-drinks reveal">
+              ${DRINKS.map((d) => `
+                <li>
+                  <div><h3>${d.name}</h3><p>${d.desc}</p></div>
+                  <span class="dessert-price">${fmt(d.price)}</span>
+                </li>
+              `).join('')}
+            </ul>
+            <div class="board-pills reveal">
+              <button class="pill-btn" data-config-type="goodies">🍰🥤 Composer desserts & boissons</button>
+            </div>
           </div>
         </section>`;
     }
@@ -123,12 +156,19 @@ document.addEventListener('click', (e) => {
   const pill = e.target.closest('[data-config-type]');
   if (pill) {
     const type = pill.dataset.configType;
+    if (type === 'goodies') return openGoodiesConfigurator();
     const idx = parseInt(pill.dataset.configIdx, 10);
     openConfigurator(type === 'tacos' ? TACOS_SIZES[idx] : BOX_TYPES[idx]);
   }
 });
 
 /* ============ CONFIGURATOR ============ */
+function openGoodiesConfigurator() {
+  configState = { type: 'goodies', selections: new Set() };
+  renderConfigurator();
+  toggleModal('#configurator-overlay', true);
+}
+
 function openConfigurator(item) {
   if (item.configurable === 'tacos') {
     configState = {
@@ -161,6 +201,14 @@ function configViandeCount() {
   return def.viandeCount;
 }
 function configTotal() {
+  if (configState.type === 'goodies') {
+    let goodiesTotal = 0;
+    configState.selections.forEach((name) => {
+      const g = GOODIES.find((x) => x.name === name);
+      if (g) goodiesTotal += g.price;
+    });
+    return goodiesTotal;
+  }
   let total = configBasePrice();
   if (configState.type === 'tacos') {
     configState.viandes.forEach((name) => {
@@ -193,6 +241,30 @@ function optionHTML(name, selected, disabled, extraLabel) {
 }
 
 function renderConfigurator() {
+  if (configState.type === 'goodies') {
+    const ready = configState.selections.size > 0;
+    const html = `<div class="config-header">
+      <h2>Desserts & boissons</h2>
+      <p>Sélectionnez tout ce que vous voulez ajouter à votre commande.</p>
+    </div>
+    <div class="config-step"><h4>Desserts</h4>
+      <div class="option-grid">
+        ${DESSERTS.map((d) => optionHTML(d.name, configState.selections.has(d.name), false, fmt(d.price)).replace('data-option=', 'data-goodie=')).join('')}
+      </div>
+    </div>
+    <div class="config-step"><h4>Boissons <span class="hint">(2,00 € la canette)</span></h4>
+      <div class="option-grid">
+        ${DRINKS.map((d) => optionHTML(d.name, configState.selections.has(d.name), false, fmt(d.price)).replace('data-option=', 'data-goodie=')).join('')}
+      </div>
+    </div>
+    <div class="config-footer">
+      <div class="config-total"><span>Total estimé</span>${fmt(configTotal())}</div>
+      <button class="btn btn-primary" id="config-call" ${ready ? '' : 'disabled'}>📞 Appeler pour commander</button>
+    </div>`;
+    $('#configurator-content').innerHTML = html;
+    return;
+  }
+
   const { item, type } = configState;
   const viandeCount = configViandeCount();
   let html = `<div class="config-header">
@@ -255,6 +327,12 @@ function renderConfigurator() {
 document.addEventListener('click', (e) => {
   if (!configState) return;
 
+  const goodie = e.target.closest('[data-goodie]');
+  if (goodie) {
+    const name = goodie.dataset.goodie;
+    configState.selections.has(name) ? configState.selections.delete(name) : configState.selections.add(name);
+    return renderConfigurator();
+  }
   const priceSel = e.target.closest('[data-price-select]');
   if (priceSel) {
     const def = configState.item.prices.find((p) => p.label === priceSel.dataset.priceSelect);
