@@ -554,6 +554,18 @@ h1, h2, h3 {
 }
 .pill-btn:hover { background: var(--ember); border-color: var(--ember); color: #fff8f2; }
 
+.dessert-subhead {
+  max-width: 700px;
+  margin: 0 auto 14px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.dessert-subhead .hint { color: var(--muted); font-weight: 600; text-transform: none; letter-spacing: 0; font-size: 0.8rem; }
+.dessert-subhead:not(:first-of-type) { margin-top: 36px; }
+
 .dessert-list {
   list-style: none;
   max-width: 700px;
@@ -562,6 +574,7 @@ h1, h2, h3 {
   flex-direction: column;
   gap: 14px;
 }
+.dessert-list-drinks { margin-bottom: 28px; }
 .dessert-list li {
   display: flex;
   align-items: center;
