@@ -37,10 +37,10 @@ const BOX_TYPES = [
 ];
 
 const BOARD_SECTIONS = [
-  { id: 'assiettes', icon: '🍽️', label: 'Assiettes, Wraps & Pitas', img: 'images/carte-assiettes-wraps-pitas.webp' },
-  { id: 'sandwichs', icon: '🥖', label: "Best'Of Sandwichs", img: 'images/carte-sandwichs.webp' },
+  { id: 'assiettes', icon: '🍽️', label: 'Assiettes, Wraps & Pitas', img: 'images/carte-assiettes-wraps-pitas.webp', configType: 'board' },
+  { id: 'sandwichs', icon: '🥖', label: "Best'Of Sandwichs", img: 'images/carte-sandwichs.webp', configType: 'board' },
   { id: 'box', icon: '🍱', label: 'Box & Accompagnements', img: 'images/carte-box-accompagnements.webp', configType: 'box' },
-  { id: 'burgers', icon: '🍔', label: "Best'Of Burgers", img: 'images/carte-burgers.webp' },
+  { id: 'burgers', icon: '🍔', label: "Best'Of Burgers", img: 'images/carte-burgers.webp', configType: 'board' },
   { id: 'tacos', icon: '🌮', label: 'Tacos à composer', img: 'images/carte-tacos.webp', configType: 'tacos' },
   { id: 'desserts', icon: '🍰', label: 'Desserts & Boissons', configType: 'goodies' },
 ];
@@ -94,18 +94,8 @@ function renderMenu() {
         <section class="board-section${i % 2 ? ' alt' : ''}" id="desserts">
           <div class="container">
             <div class="cat-heading reveal"><span class="icon">${section.icon}</span><h2>${section.label}</h2></div>
-            <p class="dessert-subhead reveal">Desserts</p>
             <ul class="dessert-list reveal">
               ${DESSERTS.map((d) => `
-                <li>
-                  <div><h3>${d.name}</h3><p>${d.desc}</p></div>
-                  <span class="dessert-price">${fmt(d.price)}</span>
-                </li>
-              `).join('')}
-            </ul>
-            <p class="dessert-subhead reveal">Boissons <span class="hint">(2,00 € la canette)</span></p>
-            <ul class="dessert-list dessert-list-drinks reveal">
-              ${DRINKS.map((d) => `
                 <li>
                   <div><h3>${d.name}</h3><p>${d.desc}</p></div>
                   <span class="dessert-price">${fmt(d.price)}</span>
@@ -127,6 +117,10 @@ function renderMenu() {
     } else if (section.configType === 'box') {
       pills = `<div class="board-pills reveal">
         ${BOX_TYPES.map((b, idx) => `<button class="pill-btn" data-config-type="box" data-config-idx="${idx}">🍱 Composer la ${b.name} — dès ${fmt(b.prices[0].value)}</button>`).join('')}
+      </div>`;
+    } else if (section.configType === 'board') {
+      pills = `<div class="board-pills reveal">
+        <button class="pill-btn" data-config-type="board" data-config-idx="${i}">🥤 Ajouter une boisson à ma commande</button>
       </div>`;
     }
 
@@ -158,6 +152,7 @@ document.addEventListener('click', (e) => {
     const type = pill.dataset.configType;
     if (type === 'goodies') return openGoodiesConfigurator();
     const idx = parseInt(pill.dataset.configIdx, 10);
+    if (type === 'board') return openBoardConfigurator(BOARD_SECTIONS[idx]);
     openConfigurator(type === 'tacos' ? TACOS_SIZES[idx] : BOX_TYPES[idx]);
   }
 });
@@ -165,6 +160,12 @@ document.addEventListener('click', (e) => {
 /* ============ CONFIGURATOR ============ */
 function openGoodiesConfigurator() {
   configState = { type: 'goodies', selections: new Set() };
+  renderConfigurator();
+  toggleModal('#configurator-overlay', true);
+}
+
+function openBoardConfigurator(section) {
+  configState = { type: 'board', section, drink: null };
   renderConfigurator();
   toggleModal('#configurator-overlay', true);
 }
@@ -178,6 +179,7 @@ function openConfigurator(item) {
       viandes: new Set(),
       sauces: new Set(),
       extras: new Set(),
+      drink: null,
     };
   } else {
     configState = {
@@ -185,6 +187,7 @@ function openConfigurator(item) {
       priceKey: item.prices[0].key,
       viandes: new Set(),
       extras: new Set(),
+      drink: null,
     };
   }
   renderConfigurator();
@@ -200,6 +203,11 @@ function configViandeCount() {
   const def = configState.item.prices.find((p) => p.key === configState.priceKey);
   return def.viandeCount;
 }
+function configDrinkPrice() {
+  if (!configState.drink) return 0;
+  const d = DRINKS.find((x) => x.name === configState.drink);
+  return d ? d.price : 0;
+}
 function configTotal() {
   if (configState.type === 'goodies') {
     let goodiesTotal = 0;
@@ -209,7 +217,10 @@ function configTotal() {
     });
     return goodiesTotal;
   }
-  let total = configBasePrice();
+  if (configState.type === 'board') {
+    return configDrinkPrice();
+  }
+  let total = configBasePrice() + configDrinkPrice();
   if (configState.type === 'tacos') {
     configState.viandes.forEach((name) => {
       const v = TACOS_VIANDES.find((x) => x.name === name);
@@ -265,6 +276,24 @@ function renderConfigurator() {
     return;
   }
 
+  if (configState.type === 'board') {
+    const html = `<div class="config-header">
+      <h2>${configState.section.label}</h2>
+      <p>Ajoutez une boisson à votre commande, puis appelez-nous pour la confirmer.</p>
+    </div>
+    <div class="config-step"><h4>Boisson <span class="hint">(optionnel, 2,00 € la canette)</span></h4>
+      <div class="option-grid">
+        ${DRINKS.map((d) => optionHTML(d.name, configState.drink === d.name, false, fmt(d.price)).replace('data-option=', 'data-drink=')).join('')}
+      </div>
+    </div>
+    <div class="config-footer">
+      <div class="config-total"><span>Total estimé</span>${fmt(configTotal())}</div>
+      <button class="btn btn-primary" id="config-call">📞 Appeler pour commander</button>
+    </div>`;
+    $('#configurator-content').innerHTML = html;
+    return;
+  }
+
   const { item, type } = configState;
   const viandeCount = configViandeCount();
   let html = `<div class="config-header">
@@ -311,6 +340,11 @@ function renderConfigurator() {
         ${BOX_EXTRAS.map((x) => optionHTML(x.name, configState.extras.has(x.name), false, `+${fmt(x.price)}`).replace('data-option=', 'data-extra=')).join('')}
       </div></div>`;
   }
+
+  html += `<div class="config-step"><h4>Boisson <span class="hint">(optionnel, +2,00 €)</span></h4>
+    <div class="option-grid">
+      ${DRINKS.map((d) => optionHTML(d.name, configState.drink === d.name, false, `+${fmt(d.price)}`).replace('data-option=', 'data-drink=')).join('')}
+    </div></div>`;
 
   const ready = type === 'tacos'
     ? (configState.garniture && configState.viandes.size === viandeCount)
@@ -360,6 +394,12 @@ document.addEventListener('click', (e) => {
   if (extra) {
     const name = extra.dataset.extra;
     configState.extras.has(name) ? configState.extras.delete(name) : configState.extras.add(name);
+    return renderConfigurator();
+  }
+  const drink = e.target.closest('[data-drink]');
+  if (drink) {
+    const name = drink.dataset.drink;
+    configState.drink = configState.drink === name ? null : name;
     return renderConfigurator();
   }
   if (e.target.id === 'config-call') {
