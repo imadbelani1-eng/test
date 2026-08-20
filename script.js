@@ -37,12 +37,12 @@ const BOX_TYPES = [
 ];
 
 const BOARD_SECTIONS = [
-  { id: 'assiettes', icon: '🍽️', label: 'Assiettes, Wraps & Pitas', img: 'images/carte-assiettes-wraps-pitas.jpg' },
-  { id: 'sandwichs', icon: '🥖', label: "Best'Of Sandwichs", img: 'images/carte-sandwichs.jpg' },
-  { id: 'box', icon: '🍱', label: 'Box & Accompagnements', img: 'images/carte-box-accompagnements.jpg', configType: 'box' },
-  { id: 'burgers', icon: '🍔', label: "Best'Of Burgers", img: 'images/carte-burgers.jpg' },
-  { id: 'tacos', icon: '🌮', label: 'Tacos à composer', img: 'images/carte-tacos.jpg', configType: 'tacos' },
-  { id: 'desserts', icon: '🍰', label: 'Kids & Desserts' },
+  { id: 'assiettes', icon: '🍽️', label: 'Assiettes, Wraps & Pitas', img: 'images/carte-assiettes-wraps-pitas.webp', configType: 'board' },
+  { id: 'sandwichs', icon: '🥖', label: 'Sami Sandwichs', img: 'images/carte-sandwichs.webp', configType: 'board' },
+  { id: 'box', icon: '🍱', label: 'Box & Accompagnements', img: 'images/carte-box-accompagnements.webp', configType: 'box' },
+  { id: 'burgers', icon: '🍔', label: 'Sami Burgers', img: 'images/carte-burgers.webp', configType: 'board' },
+  { id: 'tacos', icon: '🌮', label: 'Tacos à composer', img: 'images/carte-tacos.webp', configType: 'tacos' },
+  { id: 'desserts', icon: '🍰', label: 'Desserts & Boissons', configType: 'goodies' },
 ];
 
 const DESSERTS = [
@@ -50,6 +50,26 @@ const DESSERTS = [
   { name: 'Tarte Daim', desc: 'Part de tarte au Daim.', price: 2.5 },
   { name: 'Tiramisu', desc: 'Tiramisu maison.', price: 3.0 },
 ];
+
+const DRINKS = [
+  { name: 'Coca-Cola', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Coca-Cola Zero', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Fanta Orange', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Fanta Citron', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Sprite', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Ice Tea Citron', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Ice Tea Pêche', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Oasis Tropical', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Orangina', desc: 'Canette 33cl.', price: 2.0 },
+  { name: "Schweppes Agrum'", desc: 'Canette 33cl.', price: 2.0 },
+  { name: '7Up', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Perrier', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Minute Maid Orange', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Tropico', desc: 'Canette 33cl.', price: 2.0 },
+  { name: 'Eau minérale', desc: 'Bouteille 50cl.', price: 2.0 },
+];
+
+const GOODIES = [...DESSERTS, ...DRINKS];
 
 /* ============ STATE ============ */
 const RESTAURANT_TEL = '+33961643625';
@@ -64,7 +84,8 @@ function renderMenu() {
   const nav = $('#cat-nav');
   const footerLinks = $('#footer-cat-links');
   const wrap = $('#menu-container');
-  nav.innerHTML = BOARD_SECTIONS.map((c) => `<a href="#${c.id}">${c.icon} ${c.label}</a>`).join('');
+  nav.innerHTML = '<a href="#carte" class="cat-nav-carte">🗂️ Carte</a>'
+    + BOARD_SECTIONS.map((c) => `<a href="#${c.id}">${c.icon} ${c.label}</a>`).join('');
   footerLinks.innerHTML = BOARD_SECTIONS.map((c) => `<li><a href="#${c.id}">${c.label}</a></li>`).join('');
 
   wrap.innerHTML = BOARD_SECTIONS.map((section, i) => {
@@ -81,6 +102,9 @@ function renderMenu() {
                 </li>
               `).join('')}
             </ul>
+            <div class="board-pills reveal">
+              <button class="pill-btn" data-config-type="goodies">🍰🥤 Composer desserts & boissons</button>
+            </div>
           </div>
         </section>`;
     }
@@ -94,16 +118,27 @@ function renderMenu() {
       pills = `<div class="board-pills reveal">
         ${BOX_TYPES.map((b, idx) => `<button class="pill-btn" data-config-type="box" data-config-idx="${idx}">🍱 Composer la ${b.name} — dès ${fmt(b.prices[0].value)}</button>`).join('')}
       </div>`;
+    } else if (section.configType === 'board') {
+      pills = `<div class="board-pills reveal">
+        <button class="pill-btn" data-config-type="board" data-config-idx="${i}">🥤 Ajouter une boisson à ma commande</button>
+      </div>`;
     }
 
     return `
       <section class="board-section${i % 2 ? ' alt' : ''}" id="${section.id}">
         <div class="container">
           <div class="cat-heading reveal"><span class="icon">${section.icon}</span><h2>${section.label}</h2></div>
-          <div class="board-photo-wrap reveal">
-            <img class="board-photo" src="${section.img}" alt="Carte ${section.label}" loading="lazy">
-            <div class="media-glow"></div>
-            <div class="board-steam"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="board-frame reveal">
+            <div class="board-photo-wrap">
+              <img class="board-photo" src="${section.img}" alt="Carte ${section.label}" loading="lazy">
+              <div class="media-glow"></div>
+              <div class="steam-source" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="steam" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
           </div>
           ${pills}
         </div>
@@ -115,12 +150,26 @@ document.addEventListener('click', (e) => {
   const pill = e.target.closest('[data-config-type]');
   if (pill) {
     const type = pill.dataset.configType;
+    if (type === 'goodies') return openGoodiesConfigurator();
     const idx = parseInt(pill.dataset.configIdx, 10);
+    if (type === 'board') return openBoardConfigurator(BOARD_SECTIONS[idx]);
     openConfigurator(type === 'tacos' ? TACOS_SIZES[idx] : BOX_TYPES[idx]);
   }
 });
 
 /* ============ CONFIGURATOR ============ */
+function openGoodiesConfigurator() {
+  configState = { type: 'goodies', selections: new Set() };
+  renderConfigurator();
+  toggleModal('#configurator-overlay', true);
+}
+
+function openBoardConfigurator(section) {
+  configState = { type: 'board', section, drink: null };
+  renderConfigurator();
+  toggleModal('#configurator-overlay', true);
+}
+
 function openConfigurator(item) {
   if (item.configurable === 'tacos') {
     configState = {
@@ -130,6 +179,7 @@ function openConfigurator(item) {
       viandes: new Set(),
       sauces: new Set(),
       extras: new Set(),
+      drink: null,
     };
   } else {
     configState = {
@@ -137,6 +187,7 @@ function openConfigurator(item) {
       priceKey: item.prices[0].key,
       viandes: new Set(),
       extras: new Set(),
+      drink: null,
     };
   }
   renderConfigurator();
@@ -152,8 +203,24 @@ function configViandeCount() {
   const def = configState.item.prices.find((p) => p.key === configState.priceKey);
   return def.viandeCount;
 }
+function configDrinkPrice() {
+  if (!configState.drink) return 0;
+  const d = DRINKS.find((x) => x.name === configState.drink);
+  return d ? d.price : 0;
+}
 function configTotal() {
-  let total = configBasePrice();
+  if (configState.type === 'goodies') {
+    let goodiesTotal = 0;
+    configState.selections.forEach((name) => {
+      const g = GOODIES.find((x) => x.name === name);
+      if (g) goodiesTotal += g.price;
+    });
+    return goodiesTotal;
+  }
+  if (configState.type === 'board') {
+    return configDrinkPrice();
+  }
+  let total = configBasePrice() + configDrinkPrice();
   if (configState.type === 'tacos') {
     configState.viandes.forEach((name) => {
       const v = TACOS_VIANDES.find((x) => x.name === name);
@@ -185,6 +252,48 @@ function optionHTML(name, selected, disabled, extraLabel) {
 }
 
 function renderConfigurator() {
+  if (configState.type === 'goodies') {
+    const ready = configState.selections.size > 0;
+    const html = `<div class="config-header">
+      <h2>Desserts & boissons</h2>
+      <p>Sélectionnez tout ce que vous voulez ajouter à votre commande.</p>
+    </div>
+    <div class="config-step"><h4>Desserts</h4>
+      <div class="option-grid">
+        ${DESSERTS.map((d) => optionHTML(d.name, configState.selections.has(d.name), false, fmt(d.price)).replace('data-option=', 'data-goodie=')).join('')}
+      </div>
+    </div>
+    <div class="config-step"><h4>Boissons <span class="hint">(2,00 € la canette)</span></h4>
+      <div class="option-grid">
+        ${DRINKS.map((d) => optionHTML(d.name, configState.selections.has(d.name), false, fmt(d.price)).replace('data-option=', 'data-goodie=')).join('')}
+      </div>
+    </div>
+    <div class="config-footer">
+      <div class="config-total"><span>Total estimé</span>${fmt(configTotal())}</div>
+      <button class="btn btn-primary" id="config-call" ${ready ? '' : 'disabled'}>📞 Appeler pour commander</button>
+    </div>`;
+    $('#configurator-content').innerHTML = html;
+    return;
+  }
+
+  if (configState.type === 'board') {
+    const html = `<div class="config-header">
+      <h2>${configState.section.label}</h2>
+      <p>Ajoutez une boisson à votre commande, puis appelez-nous pour la confirmer.</p>
+    </div>
+    <div class="config-step"><h4>Boisson <span class="hint">(optionnel, 2,00 € la canette)</span></h4>
+      <div class="option-grid">
+        ${DRINKS.map((d) => optionHTML(d.name, configState.drink === d.name, false, fmt(d.price)).replace('data-option=', 'data-drink=')).join('')}
+      </div>
+    </div>
+    <div class="config-footer">
+      <div class="config-total"><span>Total estimé</span>${fmt(configTotal())}</div>
+      <button class="btn btn-primary" id="config-call">📞 Appeler pour commander</button>
+    </div>`;
+    $('#configurator-content').innerHTML = html;
+    return;
+  }
+
   const { item, type } = configState;
   const viandeCount = configViandeCount();
   let html = `<div class="config-header">
@@ -232,6 +341,11 @@ function renderConfigurator() {
       </div></div>`;
   }
 
+  html += `<div class="config-step"><h4>Boisson <span class="hint">(optionnel, +2,00 €)</span></h4>
+    <div class="option-grid">
+      ${DRINKS.map((d) => optionHTML(d.name, configState.drink === d.name, false, `+${fmt(d.price)}`).replace('data-option=', 'data-drink=')).join('')}
+    </div></div>`;
+
   const ready = type === 'tacos'
     ? (configState.garniture && configState.viandes.size === viandeCount)
     : (configState.viandes.size === viandeCount);
@@ -247,6 +361,12 @@ function renderConfigurator() {
 document.addEventListener('click', (e) => {
   if (!configState) return;
 
+  const goodie = e.target.closest('[data-goodie]');
+  if (goodie) {
+    const name = goodie.dataset.goodie;
+    configState.selections.has(name) ? configState.selections.delete(name) : configState.selections.add(name);
+    return renderConfigurator();
+  }
   const priceSel = e.target.closest('[data-price-select]');
   if (priceSel) {
     const def = configState.item.prices.find((p) => p.label === priceSel.dataset.priceSelect);
@@ -276,9 +396,16 @@ document.addEventListener('click', (e) => {
     configState.extras.has(name) ? configState.extras.delete(name) : configState.extras.add(name);
     return renderConfigurator();
   }
+  const drink = e.target.closest('[data-drink]');
+  if (drink) {
+    const name = drink.dataset.drink;
+    configState.drink = configState.drink === name ? null : name;
+    return renderConfigurator();
+  }
   if (e.target.id === 'config-call') {
     toggleModal('#configurator-overlay', false);
     configState = null;
+    showCallToast();
     window.location.href = `tel:${RESTAURANT_TEL}`;
   }
 });
@@ -291,6 +418,21 @@ function toggleModal(sel, open) {
 
 $('#close-configurator').addEventListener('click', () => { toggleModal('#configurator-overlay', false); configState = null; });
 $('#configurator-overlay').addEventListener('click', (e) => { if (e.target.id === 'configurator-overlay') { toggleModal('#configurator-overlay', false); configState = null; } });
+
+/* ============ CALL NUMBER TOAST ============ */
+const RESTAURANT_TEL_DISPLAY = '09 61 64 36 25';
+let callToastTimer = null;
+function showCallToast() {
+  const toast = $('#call-toast');
+  if (!toast) return;
+  toast.textContent = `📞 ${RESTAURANT_TEL_DISPLAY}`;
+  toast.classList.add('visible');
+  clearTimeout(callToastTimer);
+  callToastTimer = setTimeout(() => toast.classList.remove('visible'), 3500);
+}
+document.addEventListener('click', (e) => {
+  if (e.target.closest('a[href^="tel:"]')) showCallToast();
+});
 
 /* ============ LOCATION (WAZE / GOOGLE MAPS) ============ */
 document.addEventListener('click', (e) => {

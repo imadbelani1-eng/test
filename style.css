@@ -52,6 +52,22 @@ h1, h2, h3 {
   color: var(--cream);
 }
 
+.center { text-align: center; }
+.eyebrow {
+  display: block;
+  color: var(--gold);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+.section-title {
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  margin: 0 auto 40px;
+  max-width: 640px;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -156,6 +172,8 @@ h1, h2, h3 {
   border-color: var(--teal);
   color: #06282b;
 }
+.cat-nav-carte { color: var(--gold); border-color: rgba(232, 182, 74, 0.4); }
+.cat-nav-carte:hover { color: var(--gold); border-color: var(--gold); }
 
 .header-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 
@@ -278,17 +296,56 @@ h1, h2, h3 {
   100% { transform: translateY(-320px) translateX(18px); opacity: 0; }
 }
 
-/* ---------- Delivery ---------- */
-.delivery-strip { padding: 32px 0; background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.delivery-inner {
-  display: flex;
+/* ---------- Services ---------- */
+.services-section { padding: 76px 0 64px; background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.service-card {
+  background: var(--ink-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 30px 26px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.service-card:hover { transform: translateY(-4px); border-color: var(--wood-light); box-shadow: var(--shadow); }
+.service-icon {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+  background: radial-gradient(circle, rgba(255, 106, 61, 0.2), rgba(255, 106, 61, 0.04));
+  border: 1px solid rgba(255, 106, 61, 0.3);
 }
-.delivery-label { font-weight: 800; color: var(--cream); font-size: 0.95rem; }
-.delivery-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.service-card h3 { font-family: var(--font-body); text-transform: none; font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; }
+.service-card p { color: var(--muted); font-size: 0.88rem; }
+.service-card-delivery, .service-card-locate { display: flex; flex-direction: column; }
+.service-delivery-buttons { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.service-delivery-buttons .delivery-btn { padding: 9px 16px; font-size: 0.78rem; }
+
+.locate-buttons { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.locate-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.78rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.locate-btn:hover { transform: translateY(-2px); }
+.locate-waze { background: #33ccff; color: #06282b; }
+.locate-waze:hover { box-shadow: 0 10px 20px -8px rgba(51, 204, 255, 0.5); }
+.locate-maps { background: #4285f4; color: #fff; }
+.locate-maps:hover { box-shadow: 0 10px 20px -8px rgba(66, 133, 244, 0.5); }
 .delivery-btn {
   display: inline-flex;
   align-items: center;
@@ -305,7 +362,7 @@ h1, h2, h3 {
 .delivery-ubereats:hover { box-shadow: 0 10px 20px -8px rgba(6, 193, 103, 0.5); }
 
 /* ---------- Carte gallery ---------- */
-.carte-gallery { padding: 64px 0 12px; overflow: hidden; }
+.carte-gallery { padding: 64px 0 12px; overflow: hidden; scroll-margin-top: 76px; }
 .carte-gallery .eyebrow, .carte-gallery .section-title { padding: 0 24px; }
 .carte-info {
   display: flex;
@@ -322,6 +379,7 @@ h1, h2, h3 {
 .carte-info .open-location:hover { color: var(--teal-light); }
 .carte-scroll {
   overflow: hidden;
+  padding-top: 80px;
   mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 }
@@ -329,19 +387,17 @@ h1, h2, h3 {
   display: flex;
   gap: 18px;
   width: max-content;
-  animation: carte-marquee 46s linear infinite;
+  animation: carte-marquee 42s linear infinite;
 }
 .carte-scroll:hover .carte-track { animation-play-state: paused; }
 @keyframes carte-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(calc(-50% - 9px)); }
 }
+.carte-frame { position: relative; flex: 0 0 auto; }
 .carte-slide {
   position: relative;
-  flex: 0 0 auto;
   overflow: hidden;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
 }
 .carte-slide img {
   display: block;
@@ -364,6 +420,22 @@ h1, h2, h3 {
 .carte-steam span:nth-child(2) { left: 40%; width: 34px; height: 34px; animation-delay: 1.6s; }
 .carte-steam span:nth-child(3) { left: 64%; width: 40px; height: 40px; animation-delay: 3.1s; }
 .carte-steam span:nth-child(4) { left: 84%; width: 30px; height: 30px; animation-delay: 4.4s; }
+
+/* Smoke escaping upward off the top of each carte thumbnail */
+.carte-steam-escape { position: absolute; left: 8%; right: 8%; bottom: 100%; height: 90px; z-index: 2; pointer-events: none; }
+.carte-steam-escape span {
+  position: absolute;
+  bottom: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 236, 226, 0.85), rgba(242, 236, 226, 0) 72%);
+  filter: blur(7px);
+  opacity: 0;
+  animation: puff-rise 6s ease-in infinite;
+}
+.carte-steam-escape span:nth-child(1) { left: 10%; width: 30px; height: 30px; animation-delay: 0.3s; }
+.carte-steam-escape span:nth-child(2) { left: 40%; width: 40px; height: 40px; animation-delay: 1.8s; }
+.carte-steam-escape span:nth-child(3) { left: 66%; width: 28px; height: 28px; animation-delay: 3.2s; }
+.carte-steam-escape span:nth-child(4) { left: 86%; width: 34px; height: 34px; animation-delay: 4.6s; }
 
 .lightbox {
   position: fixed;
@@ -399,14 +471,9 @@ h1, h2, h3 {
 .cat-heading .icon { font-size: 1.8rem; }
 .cat-heading h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
 
+.board-frame { position: relative; max-width: 900px; margin: 0 auto; }
 .board-photo-wrap {
   position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  max-width: 900px;
-  margin: 0 auto;
 }
 .board-photo { width: 100%; height: auto; display: block; }
 .media-glow {
@@ -417,24 +484,59 @@ h1, h2, h3 {
   pointer-events: none;
 }
 
-.board-steam { position: absolute; inset: auto 0 0 0; height: 75%; z-index: 2; pointer-events: none; }
-.board-steam span {
+/* Smoke rising off the food in the photo itself, contained to its rounded corners */
+.steam-source { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.steam-source span {
   position: absolute;
-  bottom: 4%;
-  width: 64px;
-  height: 64px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.75) 40%, rgba(255, 255, 255, 0) 72%);
-  filter: blur(2px);
-  animation: puff 5.5s ease-in infinite;
+  background: radial-gradient(circle, rgba(238, 231, 218, 0.8), rgba(238, 231, 218, 0) 70%);
+  filter: blur(9px);
+  opacity: 0;
+  animation: puff-source 6.5s ease-in infinite;
 }
-.board-steam span:nth-child(1) { left: 8%; animation-delay: 0s; }
-.board-steam span:nth-child(2) { left: 22%; width: 46px; height: 46px; animation-delay: 1s; }
-.board-steam span:nth-child(3) { left: 38%; width: 70px; height: 70px; animation-delay: 2.2s; }
-.board-steam span:nth-child(4) { left: 53%; width: 40px; height: 40px; animation-delay: 0.5s; }
-.board-steam span:nth-child(5) { left: 68%; width: 60px; height: 60px; animation-delay: 2.9s; }
-.board-steam span:nth-child(6) { left: 82%; width: 48px; height: 48px; animation-delay: 1.6s; }
-.board-steam span:nth-child(7) { left: 94%; width: 38px; height: 38px; animation-delay: 3.6s; }
+.steam-source span:nth-child(1) { left: 10%;  bottom: 6%;  width: 44px; height: 44px; animation-delay: 0s; }
+.steam-source span:nth-child(2) { left: 28%;  bottom: 24%; width: 60px; height: 60px; animation-delay: 1.2s; }
+.steam-source span:nth-child(3) { left: 46%;  bottom: 4%;  width: 40px; height: 40px; animation-delay: 2.4s; }
+.steam-source span:nth-child(4) { left: 64%;  bottom: 28%; width: 56px; height: 56px; animation-delay: 3.6s; }
+.steam-source span:nth-child(5) { left: 80%;  bottom: 10%; width: 42px; height: 42px; animation-delay: 4.8s; }
+.steam-source span:nth-child(6) { left: 92%;  bottom: 22%; width: 36px; height: 36px; animation-delay: 5.9s; }
+@keyframes puff-source {
+  0% { transform: translateY(0) scale(0.4); opacity: 0; }
+  18% { opacity: 0.85; }
+  75% { opacity: 0.35; }
+  100% { transform: translateY(-150px) scale(1.6); opacity: 0; }
+}
+
+/* Smoke escaping upward off the top edge of the menu board photo, picking up where steam-source left off */
+.steam {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 100%;
+  height: 170px;
+  z-index: 2;
+  pointer-events: none;
+}
+.steam span {
+  position: absolute;
+  bottom: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 236, 226, 0.85), rgba(242, 236, 226, 0) 72%);
+  filter: blur(8px);
+  opacity: 0;
+  animation: puff-rise 6.5s ease-in infinite;
+}
+.steam span:nth-child(1) { left: 10%; width: 42px; height: 42px; animation-delay: 0s; }
+.steam span:nth-child(2) { left: 28%; width: 58px; height: 58px; animation-delay: 1.2s; }
+.steam span:nth-child(3) { left: 46%; width: 38px; height: 38px; animation-delay: 2.4s; }
+.steam span:nth-child(4) { left: 64%; width: 54px; height: 54px; animation-delay: 3.6s; }
+.steam span:nth-child(5) { left: 80%; width: 40px; height: 40px; animation-delay: 4.8s; }
+@keyframes puff-rise {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  15% { opacity: 0.95; }
+  55% { opacity: 0.4; }
+  100% { transform: translateY(-130px) scale(2); opacity: 0; }
+}
 @keyframes puff {
   0% { transform: translateY(0) scale(0.6); opacity: 0; }
   20% { opacity: 0.95; }
@@ -601,6 +703,30 @@ h1, h2, h3 {
 }
 .call-fab-icon { font-size: 1.1rem; }
 
+.call-toast {
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  z-index: 500;
+  transform: translateX(-50%) translateY(-12px);
+  background: var(--ink-2);
+  border: 1px solid var(--gold);
+  color: var(--cream);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 14px 24px;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.call-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 560px) {
+  .call-toast { top: auto; bottom: 90px; }
+}
+
 .modal-close {
   background: var(--ink-3);
   border: 1px solid var(--line);
@@ -731,6 +857,10 @@ h1, h2, h3 {
   .top-bar-item:first-child { display: none; }
 }
 
+@media (max-width: 980px) {
+  .services-grid { grid-template-columns: 1fr 1fr; }
+}
+
 @media (max-width: 700px) {
   .contact-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -743,11 +873,12 @@ h1, h2, h3 {
   .carte-info { flex-direction: column; gap: 4px; }
   .board-pills { flex-direction: column; }
   .pill-btn { width: 100%; }
+  .services-grid { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .smoke-col, .ember, .board-steam span, .carte-track, .carte-steam span, .btn, .reveal { animation: none !important; transition: none !important; }
+  .smoke-col, .ember, .steam span, .steam-source span, .carte-track, .carte-steam span, .carte-steam-escape span, .btn, .reveal { animation: none !important; transition: none !important; }
   .carte-scroll { overflow-x: auto; }
   .reveal { opacity: 1; transform: none; }
 }
